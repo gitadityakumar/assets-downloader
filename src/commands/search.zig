@@ -1,0 +1,224 @@
+const std = @import("std");
+const config = @import("../config.zig");
+const args_mod = @import("../args.zig");
+const asset_mod = @import("../asset.zig");
+const registry = @import("../providers/registry.zig");
+const aura = @import("../providers/aura.zig");
+const unsplash = @import("../providers/unsplash.zig");
+const stdio = @import("../stdio.zig");
+const Allocator = std.mem.Allocator;
+const Io = std.Io;
+const Asset = asset_mod.Asset;
+const SearchResult = asset_mod.SearchResult;
+
+pub const ExitCode = enum(u8) {
+    success = 0,
+    usage = 1,
+    network = 2,
+    not_found = 3,
+    rate_limited = 4,
+};
+
+fn doSearch(
+    client: *std.http.Client,
+    allocator: Allocator,
+    provider_id: []const u8,
+    query: []const u8,
+    limit: u32,
+) !SearchResult {
+    if (std.ascii.eqlIgnoreCase(provider_id, "aura")) {
+        return aura.search(client, allocator, query, limit);
+    }
+    if (std.ascii.eqlIgnoreCase(provider_id, "unsplash")) {
+        return unsplash.search(client, allocator, query, limit);
+    }
+    return error.UnknownProvider;
+}
+
+fn doDownload(
+    client: *std.http.Client,
+    allocator: Allocator,
+    io: Io,
+    provider_id: []const u8,
+    a: Asset,
+    output_dir: []const u8,
+) !@import("../download.zig").Saved {
+    if (std.ascii.eqlIgnoreCase(provider_id, "aura")) {
+        return aura.download(client, allocator, io, a, output_dir);
+    }
+    if (std.ascii.eqlIgnoreCase(provider_id, "unsplash")) {
+        return unsplash.download(client, allocator, io, a, output_dir);
+    }
+    return error.UnknownProvider;
+}
+
+fn doPrompt(provider_id: []const u8, a: Asset) ?[]const u8 {
+    if (std.ascii.eqlIgnoreCase(provider_id, "aura")) return aura.getPrompt(a);
+    if (std.ascii.eqlIgnoreCase(provider_id, "unsplash")) return unsplash.getPrompt(a);
+    return a.prompt orelse a.description;
+}
+
+fn doUrl(provider_id: []const u8, a: Asset) ?[]const u8 {
+    if (std.ascii.eqlIgnoreCase(provider_id, "aura")) return aura.getUrl(a);
+    if (std.ascii.eqlIgnoreCase(provider_id, "unsplash")) return unsplash.getUrl(a);
+    return a.image_url;
+}
+
+pub fn run(
+    client: *std.http.Client,
+    allocator: Allocator,
+    io: Io,
+    parsed: *const args_mod.Parsed,
+) !ExitCode {
+    const inv = args_mod.resolveSearchAlloc(allocator, parsed) catch |err| {
+        switch (err) {
+            error.MissingProvider => stdio.printErr("error: missing provider. Usage: {s} s <provider> \"<query>\"\n", .{config.app_name}),
+            error.MissingQuery => stdio.printErr("error: missing search query\n", .{}),
+            else => stdio.printErr("error: invalid search invocation\n", .{}),
+        }
+        return .usage;
+    };
+    defer allocator.free(inv.query);
+
+    if (!registry.known(inv.provider_id)) {
+        stdio.printErr("error: unknown provider \"{s}\". Available: {s}\n", .{ inv.provider_id, registry.availableIds() });
+        return .usage;
+    }
+
+    const flags = inv.flags;
+    const limit: u32 = if (flags.first) 1 else flags.limit;
+    const display = registry.displayName(inv.provider_id) orelse inv.provider_id;
+
+    if (!flags.quiet) {
+        stdio.printErr("Searching {s} for \"{s}\"…\n", .{ display, inv.query });
+    }
+
+    var result = doSearch(client, allocator, inv.provider_id, inv.query, limit) catch |err| {
+        switch (err) {
+            error.RateLimited => {
+                stdio.printErr("error: rate limited by provider\n", .{});
+                return .rate_limited;
+            },
+            error.HttpStatus => {
+                stdio.printErr("error: API returned an error status (or bot check failed)\n", .{});
+                return .network;
+            },
+            error.Network => {
+                stdio.printErr("error: network request failed\n", .{});
+                return .network;
+            },
+            error.EmptyQuery => {
+                stdio.printErr("error: empty query\n", .{});
+                return .usage;
+            },
+            else => {
+                stdio.printErr("error: search failed: {s}\n", .{@errorName(err)});
+                return .network;
+            },
+        }
+    };
+    defer result.deinit();
+
+    var assets = result.assets;
+    if (flags.first and assets.len > 1) {
+        assets = assets[0..1];
+    }
+
+    if (assets.len == 0) {
+        if (flags.json) {
+            if (flags.first) {
+                stdio.writeOut("null\n");
+            } else {
+                stdio.printOut("{{\"query\":\"{s}\",\"provider\":\"{s}\",\"total\":0,\"count\":0,\"assets\":[]}}\n", .{ inv.query, inv.provider_id });
+            }
+            return .success;
+        }
+        if (flags.prompt or flags.url or flags.download or flags.first) {
+            stdio.printErr("error: no results for \"{s}\"\n", .{inv.query});
+            return .not_found;
+        }
+        stdio.writeOut("No results found.\n");
+        return .success;
+    }
+
+    if (flags.download) {
+        for (assets) |a| {
+            if (!flags.quiet) stdio.printErr("Downloading {s}…\n", .{a.id});
+            var saved = doDownload(client, allocator, io, inv.provider_id, a, flags.output) catch |err| {
+                stdio.printErr("error: download failed: {s}\n", .{@errorName(err)});
+                return .network;
+            };
+            defer saved.deinit();
+            if (!flags.quiet) {
+                stdio.printErr("✓ Saved {s} → {s}\n", .{ saved.filename, saved.path });
+            }
+            if (flags.first and !flags.json and !flags.prompt and !flags.url) {
+                stdio.printOut("{s}\n", .{saved.path});
+                return .success;
+            }
+        }
+    }
+
+    if (flags.json) {
+        if (flags.first) {
+            var aw: Io.Writer.Allocating = .init(allocator);
+            defer aw.deinit();
+            try asset_mod.writeJson(assets[0], &aw.writer);
+            stdio.writeOut(aw.written());
+            stdio.writeOut("\n");
+        } else {
+            var aw: Io.Writer.Allocating = .init(allocator);
+            defer aw.deinit();
+            try aw.writer.writeAll("{\n  \"query\": ");
+            try writeStr(&aw.writer, inv.query);
+            try aw.writer.print(",\n  \"provider\": \"{s}\",\n  \"total\": {d},\n  \"count\": {d},\n  \"assets\": [\n", .{
+                inv.provider_id,
+                result.total orelse assets.len,
+                assets.len,
+            });
+            for (assets, 0..) |a, i| {
+                if (i > 0) try aw.writer.writeAll(",\n");
+                try asset_mod.writeJson(a, &aw.writer);
+            }
+            try aw.writer.writeAll("\n  ]\n}\n");
+            stdio.writeOut(aw.written());
+        }
+        return .success;
+    }
+
+    if (flags.prompt) {
+        for (assets) |a| {
+            const p = doPrompt(inv.provider_id, a) orelse "";
+            stdio.printOut("{s}\n", .{p});
+        }
+        return .success;
+    }
+
+    if (flags.url) {
+        for (assets) |a| {
+            if (doUrl(inv.provider_id, a)) |u| stdio.printOut("{s}\n", .{u});
+        }
+        return .success;
+    }
+
+    for (assets, 0..) |a, i| {
+        stdio.printOut("{d: >2}. {s}\n", .{ i + 1, a.description });
+    }
+    if (!flags.quiet) {
+        stdio.printErr("\n{d} shown\n", .{assets.len});
+    }
+    return .success;
+}
+
+fn writeStr(w: *Io.Writer, s: []const u8) !void {
+    try w.writeByte('"');
+    for (s) |c| {
+        switch (c) {
+            '"' => try w.writeAll("\\\""),
+            '\\' => try w.writeAll("\\\\"),
+            '\n' => try w.writeAll("\\n"),
+            else => try w.writeByte(c),
+        }
+    }
+    try w.writeByte('"');
+}

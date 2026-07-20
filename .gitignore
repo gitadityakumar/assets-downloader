@@ -1,0 +1,18 @@
+# Zig
+.zig-cache/
+zig-out/
+zig-cache/
+
+# Downloads
+downloads/*
+!downloads/.gitkeep
+
+# Editor / OS
+.idea/
+.DS_Store
+*.swp
+*~
+
+# Env
+.env
+.env.*
