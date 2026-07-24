@@ -1,0 +1,216 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to release (e.g. v1.0.0). Leave empty to use the current ref name."
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build ${{ matrix.target }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Static musl binaries (preferred for portable installs)
+          - target: x86_64-linux-musl
+            asset: ast-x86_64-linux-musl
+          - target: aarch64-linux-musl
+            asset: ast-aarch64-linux-musl
+          # glibc variants for distro-native linking
+          - target: x86_64-linux-gnu
+            asset: ast-x86_64-linux-gnu
+          - target: aarch64-linux-gnu
+            asset: ast-aarch64-linux-gnu
+          # Additional Linux architectures
+          - target: arm-linux-musleabihf
+            asset: ast-arm-linux-musleabihf
+          - target: riscv64-linux-musl
+            asset: ast-riscv64-linux-musl
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # On manual runs with an explicit tag, build that revision
+          ref: ${{ inputs.tag != '' && inputs.tag || github.ref }}
+
+      - name: Setup Zig
+        uses: mlugg/setup-zig@v2
+        with:
+          version: 0.16.0
+          cache-key: ${{ matrix.target }}
+
+      - name: Resolve version
+        id: meta
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ inputs.tag }}" ]; then
+            VERSION="${{ inputs.tag }}"
+          else
+            VERSION="${GITHUB_REF_NAME}"
+          fi
+          VERSION="${VERSION#v}"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "asset=${{ matrix.asset }}-${VERSION}" >> "$GITHUB_OUTPUT"
+
+      - name: Build
+        run: |
+          zig build -Doptimize=ReleaseFast -Dtarget=${{ matrix.target }}
+          test -x zig-out/bin/ast
+
+      - name: Package
+        run: |
+          set -euo pipefail
+          VERSION="${{ steps.meta.outputs.version }}"
+          ASSET="${{ steps.meta.outputs.asset }}"
+          mkdir -p dist staging/"${ASSET}"
+          cp zig-out/bin/ast staging/"${ASSET}"/ast
+          cp LICENSE README.md staging/"${ASSET}"/
+          printf '%s\n' "${VERSION}" > staging/"${ASSET}"/VERSION
+          tar -C staging -czf "dist/${ASSET}.tar.gz" "${ASSET}"
+          # Bare binary asset (same base name as the archive stem)
+          cp zig-out/bin/ast "dist/${ASSET}"
+          (cd dist && sha256sum "${ASSET}" "${ASSET}.tar.gz" > "${ASSET}.sha256")
+          ls -lh dist/
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.meta.outputs.asset }}
+          path: |
+            dist/${{ steps.meta.outputs.asset }}
+            dist/${{ steps.meta.outputs.asset }}.tar.gz
+            dist/${{ steps.meta.outputs.asset }}.sha256
+          if-no-files-found: error
+
+  release:
+    name: Publish GitHub release
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag != '' && inputs.tag || github.ref }}
+
+      - name: Resolve tag
+        id: meta
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ inputs.tag }}" ]; then
+            TAG="${{ inputs.tag }}"
+          else
+            TAG="${GITHUB_REF_NAME}"
+          fi
+          case "${TAG}" in
+            v*) ;;
+            *) TAG="v${TAG}" ;;
+          esac
+          VERSION="${TAG#v}"
+          echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          # Guard accidental release from a branch name via workflow_dispatch
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && ! git rev-parse -q --verify "refs/tags/${TAG}" >/dev/null; then
+            # Tag may only exist on the remote after checkout of branch; still require v* shape
+            case "${TAG}" in
+              v[0-9]*) ;;
+              *) echo "error: workflow_dispatch requires a version tag (e.g. v1.0.0), got '${TAG}'" >&2; exit 1 ;;
+            esac
+          fi
+
+      - name: Download all build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Assemble release assets
+        run: |
+          set -euo pipefail
+          mkdir -p release
+          # Flatten artifact directories into release/
+          find artifacts -type f \( -name 'ast-*' -o -name '*.tar.gz' -o -name '*.sha256' \) -print0 \
+            | while IFS= read -r -d '' f; do
+                cp -f "$f" release/
+              done
+
+          # Combined checksum file for binaries and archives (exclude nested .sha256 notes)
+          (
+            cd release
+            rm -f SHA256SUMS
+            : > SHA256SUMS
+            for f in ast-*; do
+              case "$f" in
+                *.sha256) continue ;;
+                *) sha256sum "$f" >> SHA256SUMS ;;
+              esac
+            done
+            # Drop per-target checksum sidecars; SHA256SUMS is the single source of truth
+            rm -f ./*.sha256
+          )
+
+          # Ship install.sh from the tagged commit so curl|bash can pin to a release
+          cp install.sh release/install.sh
+
+          ls -lah release/
+          echo "---- SHA256SUMS ----"
+          cat release/SHA256SUMS
+
+      - name: Create or update GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          TAG="${{ steps.meta.outputs.tag }}"
+          VERSION="${{ steps.meta.outputs.version }}"
+
+          NOTES_FILE="$(mktemp)"
+          {
+            echo "## ast ${TAG}"
+            echo
+            echo "Pre-built **Linux** binaries of \`ast\` (Asset Downloader)."
+            echo
+            echo "### Install (recommended)"
+            echo
+            echo '```bash'
+            echo "curl -fsSL https://raw.githubusercontent.com/gitadityakumar/assets-downloader/${TAG}/install.sh | bash"
+            echo '```'
+            echo
+            echo "Or install the latest release from \`main\`:"
+            echo
+            echo '```bash'
+            echo "curl -fsSL https://raw.githubusercontent.com/gitadityakumar/assets-downloader/main/install.sh | bash"
+            echo '```'
+            echo
+            echo "### Manual download"
+            echo
+            echo "| Platform | Archive | Binary |"
+            echo "|----------|---------|--------|"
+            echo "| Linux x86_64 (static musl) | \`ast-x86_64-linux-musl-${VERSION}.tar.gz\` | \`ast-x86_64-linux-musl-${VERSION}\` |"
+            echo "| Linux aarch64 (static musl) | \`ast-aarch64-linux-musl-${VERSION}.tar.gz\` | \`ast-aarch64-linux-musl-${VERSION}\` |"
+            echo "| Linux x86_64 (glibc) | \`ast-x86_64-linux-gnu-${VERSION}.tar.gz\` | \`ast-x86_64-linux-gnu-${VERSION}\` |"
+            echo "| Linux aarch64 (glibc) | \`ast-aarch64-linux-gnu-${VERSION}.tar.gz\` | \`ast-aarch64-linux-gnu-${VERSION}\` |"
+            echo "| Linux armv7 (static musl) | \`ast-arm-linux-musleabihf-${VERSION}.tar.gz\` | \`ast-arm-linux-musleabihf-${VERSION}\` |"
+            echo "| Linux riscv64 (static musl) | \`ast-riscv64-linux-musl-${VERSION}.tar.gz\` | \`ast-riscv64-linux-musl-${VERSION}\` |"
+            echo
+            echo "Verify with \`SHA256SUMS\`."
+            echo
+            echo "The install script prefers **musl** static builds when available."
+          } > "$NOTES_FILE"
+
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" release/* --clobber
+            gh release edit "$TAG" --notes-file "$NOTES_FILE"
+          else
+            gh release create "$TAG" release/* \
+              --title "ast ${TAG}" \
+              --notes-file "$NOTES_FILE" \
+              --verify-tag
+          fi

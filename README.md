@@ -5,6 +5,8 @@
 [![Version](https://img.shields.io/badge/version-1.0.0-brightgreen?style=for-the-badge)](#installation)
 [![Zig](https://img.shields.io/badge/Zig-0.16+-f7a41d?style=for-the-badge&logo=zig&logoColor=white)](https://ziglang.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
+[![CI](https://img.shields.io/github/actions/workflow/status/gitadityakumar/assets-downloader/ci.yml?branch=main&style=for-the-badge&label=CI)](https://github.com/gitadityakumar/assets-downloader/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/gitadityakumar/assets-downloader?style=for-the-badge&label=release)](https://github.com/gitadityakumar/assets-downloader/releases)
 [![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-lightgrey?style=for-the-badge)](#installation)
 
 </div>
@@ -12,9 +14,12 @@
 **ast** (Asset Downloader) is a feature-focused command-line tool for searching and downloading public image assets from multiple providers. It is written in [Zig](https://ziglang.org) 0.16, ships as a single native binary, and is designed for both interactive use and scripting.
 
 * [INSTALLATION](#installation)
+    * [Quick install (Linux)](#quick-install-linux)
+    * [Pre-built binaries](#pre-built-binaries)
     * [Build from source](#build-from-source)
     * [Install to a prefix](#install-to-a-prefix)
     * [Dependencies](#dependencies)
+* [RELEASING](#releasing)
 * [USAGE AND OPTIONS](#usage-and-options)
     * [Synopsis](#synopsis)
     * [Examples](#examples)
@@ -31,7 +36,55 @@
 
 # INSTALLATION
 
-There are no pre-built release binaries yet. Build from source with Zig.
+## Quick install (Linux)
+
+Download and install the latest pre-built binary with one command:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/gitadityakumar/assets-downloader/main/install.sh | bash
+```
+
+This detects your CPU architecture, downloads a **static musl** build when available, verifies the SHA-256 checksum, and installs `ast` to `~/.local/bin` (create that directory and ensure it is on your `PATH` if needed).
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `VERSION` | latest GitHub release | Version without a leading `v` (e.g. `1.0.0`) |
+| `PREFIX` / `BINDIR` | `~/.local/bin` | Install directory |
+| `TARGET` | auto | Force a Zig target triple (e.g. `x86_64-linux-gnu`) |
+| `VERIFY` | `1` | Set to `0` to skip checksum verification |
+| `REPO` | `gitadityakumar/assets-downloader` | GitHub repository |
+
+Examples:
+
+```bash
+# Pin a version
+curl -fsSL https://raw.githubusercontent.com/gitadityakumar/assets-downloader/main/install.sh | VERSION=1.0.0 bash
+
+# System-wide install (may prompt for sudo)
+curl -fsSL https://raw.githubusercontent.com/gitadityakumar/assets-downloader/main/install.sh | PREFIX=/usr/local/bin bash
+
+# Prefer a glibc-linked binary
+curl -fsSL https://raw.githubusercontent.com/gitadityakumar/assets-downloader/main/install.sh | TARGET=x86_64-linux-gnu bash
+```
+
+macOS and Windows users should [build from source](#build-from-source) for now; CI publishes Linux binaries only.
+
+## Pre-built binaries
+
+GitHub Releases publish archives and bare binaries for these Linux targets:
+
+| Target | Notes |
+|--------|--------|
+| `x86_64-linux-musl` | Static; default install on Intel/AMD 64-bit |
+| `aarch64-linux-musl` | Static; default install on ARM64 |
+| `x86_64-linux-gnu` | Dynamically linked against glibc |
+| `aarch64-linux-gnu` | Dynamically linked against glibc |
+| `arm-linux-musleabihf` | Static 32-bit ARM (hard-float) |
+| `riscv64-linux-musl` | Static RISC-V 64-bit |
+
+Asset names look like `ast-<target>-<version>.tar.gz` (and a matching bare binary). Each release also ships `SHA256SUMS` and a copy of `install.sh`.
+
+Browse releases: https://github.com/gitadityakumar/assets-downloader/releases
 
 ## Build from source
 
@@ -43,6 +96,13 @@ cd assets-downloader
 zig build                        # debug → zig-out/bin/ast
 zig build -Doptimize=ReleaseFast # optimized release build
 zig build test                   # unit tests
+```
+
+Cross-compile for a Linux release target (same flags CI uses):
+
+```bash
+zig build -Doptimize=ReleaseFast -Dtarget=x86_64-linux-musl
+zig build -Doptimize=ReleaseFast -Dtarget=aarch64-linux-musl
 ```
 
 Run without installing:
@@ -216,7 +276,28 @@ src/
     unsplash.zig
 assets/                    README banner and static assets
 docs/                      Provider implementation notes
+install.sh                 curl | bash installer (Linux release binaries)
+.github/workflows/
+  ci.yml                   Build and test on push / PR
+  release.yml              Multi-arch Linux binaries on version tags
 ```
+
+# RELEASING
+
+CI builds and tests on every push and pull request to `main` (see [`.github/workflows/ci.yml`](.github/workflows/ci.yml)).
+
+Tagged releases publish Linux binaries:
+
+1. Bump `version` in `src/config.zig` and `build.zig.zon` (and the README badge if you keep it in sync).
+2. Commit the version bump.
+3. Create and push an annotated tag:
+   ```bash
+   git tag -a v1.0.0 -m "ast v1.0.0"
+   git push origin v1.0.0
+   ```
+4. The [Release](.github/workflows/release.yml) workflow cross-compiles for the Linux targets above, attaches archives, bare binaries, `SHA256SUMS`, and `install.sh` to the GitHub Release.
+
+You can also run the release workflow manually from the Actions tab (`workflow_dispatch`) if you need to republish assets for an existing tag.
 
 # CONTRIBUTING
 
