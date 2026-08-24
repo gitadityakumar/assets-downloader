@@ -39,28 +39,7 @@ This document summarizes the network endpoints, transport models, and image down
 
 ---
 
-## 4. Pexels (`pexels.com`)
-
-* **Search**: `GET https://www.pexels.com/search/{query}/`
-* **Format**: SSR JSON embedded in `<script id="__NEXT_DATA__">`.
-* **Extraction**:
-  * `props.pageProps.initialData.data[]` contains photo attributes, author/user info, and CDN image variations (`small`, `medium`, `large`, `download_link`).
-* **Download**: Images served from `images.pexels.com`.
-
----
-
-## 5. Kaboompics (`kaboompics.com`)
-
-* **Search**: `GET https://kaboompics.com/?search_keywords={query}`
-* **Format**: SSR HTML containing Base64 encoded JSON in `data-modal="..."` attributes.
-* **Extraction**:
-  * Base64 decoded payload provides `photo.id`, `photo.name` (hash), dimensions, color palette, and tags.
-* **Download**: Direct GET on `https://kaboompics.com/download/{name_hash}/original`.
-* **Photographer**: Karolina Grabowska.
-
----
-
-## 6. Aura (`aura.build`)
+## 4. Aura (`aura.build`)
 
 * **Search**: Supabase PostgREST search API (`/rest/v1/assets`).
 * **Format**: JSON with tokenized keyword matching.
@@ -69,7 +48,7 @@ This document summarizes the network endpoints, transport models, and image down
 
 ---
 
-## 7. Unsplash (`unsplash.com`)
+## 5. Unsplash (`unsplash.com`)
 
 * **Search**: Server-rendered search markup and public JSON endpoints.
 * **Download**: `images.unsplash.com` CDN transforms.

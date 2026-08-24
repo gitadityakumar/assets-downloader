@@ -3,9 +3,7 @@
 const std = @import("std");
 const aura = @import("aura.zig");
 const unsplash = @import("unsplash.zig");
-const pexels = @import("pexels.zig");
 const isorepublic = @import("isorepublic.zig");
-const kaboompics = @import("kaboompics.zig");
 const picjumbo = @import("picjumbo.zig");
 const foodiesfeed = @import("foodiesfeed.zig");
 
@@ -18,9 +16,7 @@ pub fn list() []const ProviderInfo {
     return &[_]ProviderInfo{
         .{ .id = aura.id, .name = aura.name },
         .{ .id = unsplash.id, .name = unsplash.name },
-        .{ .id = pexels.id, .name = pexels.name },
         .{ .id = isorepublic.id, .name = isorepublic.name },
-        .{ .id = kaboompics.id, .name = kaboompics.name },
         .{ .id = picjumbo.id, .name = picjumbo.name },
         .{ .id = foodiesfeed.id, .name = foodiesfeed.name },
     };
@@ -41,5 +37,5 @@ pub fn displayName(id: []const u8) ?[]const u8 {
 }
 
 pub fn availableIds() []const u8 {
-    return "aura, unsplash, pexels, isorepublic, kaboompics, picjumbo, foodiesfeed";
+    return "aura, unsplash, isorepublic, picjumbo, foodiesfeed";
 }
