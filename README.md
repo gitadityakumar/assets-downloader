@@ -223,6 +223,11 @@ Provider and query may be given as positionals after `s` / `-s`, or with `-P` / 
 |----|------|-------------|--------|
 | `aura` | [Aura.build](https://www.aura.build) | Public design assets via Supabase PostgREST | Tokenized match on title, description, keywords. See [docs/AURA_API.md](docs/AURA_API.md). |
 | `unsplash` | [Unsplash](https://unsplash.com) | Public photo search and free library downloads | See [docs/unsplash.md](docs/unsplash.md). Prefer the [official Unsplash API](https://unsplash.com/developers) for production apps. |
+| `pexels` | [Pexels](https://www.pexels.com) | Free stock photos & video library | HTML / Next.js data extraction with direct CDN image downloads. |
+| `isorepublic` | [ISO Republic](https://isorepublic.com) | Free high-resolution CC0 stock photos | Direct full-resolution downloads from WordPress media. |
+| `kaboompics` | [Kaboompics](https://kaboompics.com) | Free stock photography by Karolina Grabowska | Direct high-resolution original asset downloads. |
+| `picjumbo` | [Picjumbo](https://picjumbo.com) | Free stock photos by Viktor Hanacek | Direct full-resolution photo downloads. |
+| `foodiesfeed` | [Foodiesfeed](https://www.foodiesfeed.com) | Free food photography | Direct master resolution downloads from Cloudflare R2 storage. |
 
 List providers at runtime via `ast help` (printed under **PROVIDERS**).
 
@@ -274,6 +279,11 @@ src/
     registry.zig
     aura.zig
     unsplash.zig
+    pexels.zig
+    isorepublic.zig
+    kaboompics.zig
+    picjumbo.zig
+    foodiesfeed.zig
 assets/                    README banner and static assets
 docs/                      Provider implementation notes
 install.sh                 curl | bash installer (Linux release binaries)
