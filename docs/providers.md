@@ -53,3 +53,16 @@ This document summarizes the network endpoints, transport models, and image down
 * **Search**: Server-rendered search markup and public JSON endpoints.
 * **Download**: `images.unsplash.com` CDN transforms.
 * **Documentation**: See [docs/unsplash.md](unsplash.md).
+
+---
+
+## 6. Picography (`picography.co`)
+
+* **Search**: `GET https://picography.co/?s={query}`
+* **Format**: WordPress SSR HTML with single-photo articles (`class="single-photo hentry"`).
+* **Extraction**:
+  * Title extracted from `<span class="hidden" itemprop="name">` or image title attribute.
+  * Author extracted from `rel="author"`.
+  * Original image path extracted from `wp-content/uploads/` path, removing dimensions suffix (`-600x400.jpg`).
+* **Download**: Direct GET on `https://picography.co/wp-content/uploads/...` with browser headers.
+* **License**: CC0 / Royalty-Free.
