@@ -8,6 +8,7 @@ const unsplash = @import("providers/unsplash.zig");
 const isorepublic = @import("providers/isorepublic.zig");
 const picjumbo = @import("providers/picjumbo.zig");
 const foodiesfeed = @import("providers/foodiesfeed.zig");
+const picography = @import("providers/picography.zig");
 const registry = @import("providers/registry.zig");
 const stdio = @import("stdio.zig");
 const Allocator = std.mem.Allocator;
@@ -41,6 +42,9 @@ fn searchProvider(
     if (std.ascii.eqlIgnoreCase(provider_id, "foodiesfeed")) {
         return foodiesfeed.search(client, allocator, query, config.default_limit);
     }
+    if (std.ascii.eqlIgnoreCase(provider_id, "picography")) {
+        return picography.search(client, allocator, query, config.default_limit);
+    }
     return error.UnknownProvider;
 }
 
@@ -66,6 +70,9 @@ fn downloadAsset(
     if (std.ascii.eqlIgnoreCase(provider_id, "foodiesfeed")) {
         return foodiesfeed.download(client, allocator, io, a, config.default_output_dir);
     }
+    if (std.ascii.eqlIgnoreCase(provider_id, "picography")) {
+        return picography.download(client, allocator, io, a, config.default_output_dir);
+    }
     return error.UnknownProvider;
 }
 
@@ -75,6 +82,7 @@ fn promptOf(provider_id: []const u8, a: Asset) ?[]const u8 {
     if (std.ascii.eqlIgnoreCase(provider_id, "isorepublic")) return isorepublic.getPrompt(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "picjumbo")) return picjumbo.getPrompt(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "foodiesfeed")) return foodiesfeed.getPrompt(a);
+    if (std.ascii.eqlIgnoreCase(provider_id, "picography")) return picography.getPrompt(a);
     return a.prompt;
 }
 
@@ -84,6 +92,7 @@ fn urlOf(provider_id: []const u8, a: Asset) ?[]const u8 {
     if (std.ascii.eqlIgnoreCase(provider_id, "isorepublic")) return isorepublic.getUrl(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "picjumbo")) return picjumbo.getUrl(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "foodiesfeed")) return foodiesfeed.getUrl(a);
+    if (std.ascii.eqlIgnoreCase(provider_id, "picography")) return picography.getUrl(a);
     return a.image_url;
 }
 
