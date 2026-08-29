@@ -79,3 +79,16 @@ This document summarizes the network endpoints, transport models, and image down
   * Master image path extracted from `wp-content/uploads/` path, removing dimension suffixes (`-800x525.jpg`).
 * **Download**: Direct GET on `https://gratisography.com/wp-content/uploads/...` with browser headers.
 * **License**: CC0 / Royalty-Free.
+
+---
+
+## 8. Startup Stock Photos (`startupstockphotos.com`)
+
+* **Search**: `GET https://startupstockphotos.com/?s={query}`
+* **Format**: WordPress SSR HTML with photo links (`href="https://startupstockphotos.com/photos/..."`).
+* **Extraction**:
+  * Title extracted from `<span class="hidden" itemprop="name">` or image alt attribute.
+  * Author credited as Startup Stock Photos.
+  * Master image path extracted from `wp-content/uploads/` path, removing dimension suffixes (`-500x330.jpg`).
+* **Download**: Direct GET on `https://startupstockphotos.com/wp-content/uploads/...` with browser headers.
+* **License**: CC0 / Free Public Domain.

@@ -7,9 +7,9 @@ This document tracks all 24 stock photo websites listed in the [GrayGrids 21+ Be
 ## Summary Status
 
 - **Total Sites Listed**: 24
-- **Implemented & Working**: 6 (`unsplash`, `isorepublic`, `picjumbo`, `foodiesfeed`, `picography`, `gratisography`)
+- **Implemented & Working**: 7 (`unsplash`, `isorepublic`, `picjumbo`, `foodiesfeed`, `picography`, `gratisography`, `startupstockphotos`)
 - *(Additional Provider Implemented in `ast`)*: `aura` ([Aura.build](https://www.aura.build))
-- **Unimplemented / Blocked / Pending**: 18
+- **Unimplemented / Blocked / Pending**: 17
 
 ---
 
@@ -71,9 +71,10 @@ This document tracks all 24 stock photo websites listed in the [GrayGrids 21+ Be
   - **Status**: Unimplemented (Blocked by Cloudflare).
   - **Notes**: Public domain CC0 images; Cloudflare challenge blocks direct CLI requests.
 
-- [ ] **Startup Stock Photos** ([startupstockphotos.com](http://startupstockphotos.com/))
-  - **Status**: Unimplemented.
-  - **Notes**: Tech, startup, and office lifestyle photography.
+- [x] **Startup Stock Photos** ([startupstockphotos.com](http://startupstockphotos.com/))
+  - **CLI Provider**: `startupstockphotos`
+  - **Status**: Implemented & verified.
+  - **Notes**: Search and full master-resolution CC0 photo downloading supported.
 
 - [x] **Gratisography** ([gratisography.com](http://www.gratisography.com/))
   - **CLI Provider**: `gratisography`
