@@ -53,3 +53,16 @@ This document summarizes the network endpoints, transport models, and image down
 * **Search**: Server-rendered search markup and public JSON endpoints.
 * **Download**: `images.unsplash.com` CDN transforms.
 * **Documentation**: See [docs/unsplash.md](unsplash.md).
+
+---
+
+## 6. Gratisography (`gratisography.com`)
+
+* **Search**: `GET https://gratisography.com/?s={query}`
+* **Format**: WordPress SSR HTML with photo cards (`class="single-photo hentry"`).
+* **Extraction**:
+  * Title extracted from image `alt` or anchor `title` attribute.
+  * Author credited as Ryan McGuire.
+  * Master image path extracted from `wp-content/uploads/` path, removing dimension suffixes (`-800x525.jpg`).
+* **Download**: Direct GET on `https://gratisography.com/wp-content/uploads/...` with browser headers.
+* **License**: CC0 / Royalty-Free.

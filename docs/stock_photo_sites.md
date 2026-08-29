@@ -7,9 +7,9 @@ This document tracks all 24 stock photo websites listed in the [GrayGrids 21+ Be
 ## Summary Status
 
 - **Total Sites Listed**: 24
-- **Implemented & Working**: 4 (`unsplash`, `isorepublic`, `picjumbo`, `foodiesfeed`)
+- **Implemented & Working**: 5 (`unsplash`, `isorepublic`, `picjumbo`, `foodiesfeed`, `gratisography`)
 - *(Additional Provider Implemented in `ast`)*: `aura` ([Aura.build](https://www.aura.build))
-- **Unimplemented / Blocked / Pending**: 20
+- **Unimplemented / Blocked / Pending**: 19
 
 ---
 
@@ -74,9 +74,10 @@ This document tracks all 24 stock photo websites listed in the [GrayGrids 21+ Be
   - **Status**: Unimplemented.
   - **Notes**: Tech, startup, and office lifestyle photography.
 
-- [ ] **Gratisography** ([gratisography.com](http://www.gratisography.com/))
-  - **Status**: Unimplemented.
-  - **Notes**: Quirky, creative, and humorous free stock photos by Ryan McGuire.
+- [x] **Gratisography** ([gratisography.com](http://www.gratisography.com/))
+  - **CLI Provider**: `gratisography`
+  - **Status**: Implemented & verified.
+  - **Notes**: Search and full master-resolution CC0 photo downloading supported.
 
 - [ ] **Public Domain Archive** ([publicdomainarchive.com](http://publicdomainarchive.com/))
   - **Status**: Unimplemented.
