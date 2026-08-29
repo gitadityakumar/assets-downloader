@@ -66,3 +66,16 @@ This document summarizes the network endpoints, transport models, and image down
   * Original image path extracted from `wp-content/uploads/` path, removing dimensions suffix (`-600x400.jpg`).
 * **Download**: Direct GET on `https://picography.co/wp-content/uploads/...` with browser headers.
 * **License**: CC0 / Royalty-Free.
+
+---
+
+## 7. Gratisography (`gratisography.com`)
+
+* **Search**: `GET https://gratisography.com/?s={query}`
+* **Format**: WordPress SSR HTML with photo cards (`class="single-photo hentry"`).
+* **Extraction**:
+  * Title extracted from image `alt` or anchor `title` attribute.
+  * Author credited as Ryan McGuire.
+  * Master image path extracted from `wp-content/uploads/` path, removing dimension suffixes (`-800x525.jpg`).
+* **Download**: Direct GET on `https://gratisography.com/wp-content/uploads/...` with browser headers.
+* **License**: CC0 / Royalty-Free.
