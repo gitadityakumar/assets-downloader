@@ -6,6 +6,7 @@ const unsplash = @import("unsplash.zig");
 const isorepublic = @import("isorepublic.zig");
 const picjumbo = @import("picjumbo.zig");
 const foodiesfeed = @import("foodiesfeed.zig");
+const picography = @import("picography.zig");
 const gratisography = @import("gratisography.zig");
 
 pub const ProviderInfo = struct {
@@ -20,6 +21,7 @@ pub fn list() []const ProviderInfo {
         .{ .id = isorepublic.id, .name = isorepublic.name },
         .{ .id = picjumbo.id, .name = picjumbo.name },
         .{ .id = foodiesfeed.id, .name = foodiesfeed.name },
+        .{ .id = picography.id, .name = picography.name },
         .{ .id = gratisography.id, .name = gratisography.name },
     };
 }
@@ -39,5 +41,5 @@ pub fn displayName(id: []const u8) ?[]const u8 {
 }
 
 pub fn availableIds() []const u8 {
-    return "aura, unsplash, isorepublic, picjumbo, foodiesfeed, gratisography";
+    return "aura, unsplash, isorepublic, picjumbo, foodiesfeed, picography, gratisography";
 }

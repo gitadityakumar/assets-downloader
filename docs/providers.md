@@ -56,7 +56,20 @@ This document summarizes the network endpoints, transport models, and image down
 
 ---
 
-## 6. Gratisography (`gratisography.com`)
+## 6. Picography (`picography.co`)
+
+* **Search**: `GET https://picography.co/?s={query}`
+* **Format**: WordPress SSR HTML with single-photo articles (`class="single-photo hentry"`).
+* **Extraction**:
+  * Title extracted from `<span class="hidden" itemprop="name">` or image title attribute.
+  * Author extracted from `rel="author"`.
+  * Original image path extracted from `wp-content/uploads/` path, removing dimensions suffix (`-600x400.jpg`).
+* **Download**: Direct GET on `https://picography.co/wp-content/uploads/...` with browser headers.
+* **License**: CC0 / Royalty-Free.
+
+---
+
+## 7. Gratisography (`gratisography.com`)
 
 * **Search**: `GET https://gratisography.com/?s={query}`
 * **Format**: WordPress SSR HTML with photo cards (`class="single-photo hentry"`).
