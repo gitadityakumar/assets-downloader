@@ -228,6 +228,7 @@ Provider and query may be given as positionals after `s` / `-s`, or with `-P` / 
 | `foodiesfeed` | [Foodiesfeed](https://www.foodiesfeed.com) | Free food photography | Direct master resolution downloads from Cloudflare R2 storage. |
 | `picography` | [Picography](https://picography.co) | Free high-resolution CC0 stock photos | Direct master resolution photo downloads. |
 | `gratisography` | [Gratisography](https://gratisography.com) | Creative and quirky free stock photos by Ryan McGuire | Direct master resolution photo downloads. |
+| `startupstockphotos` | [Startup Stock Photos](https://startupstockphotos.com) | Free stock photos for startups, bloggers, and creators | Direct master resolution photo downloads. |
 
 List providers at runtime via `ast help` (printed under **PROVIDERS**).
 
@@ -284,6 +285,7 @@ src/
     foodiesfeed.zig
     picography.zig
     gratisography.zig
+    startupstockphotos.zig
 assets/                    README banner and static assets
 docs/                      Provider implementation notes
 install.sh                 curl | bash installer (Linux release binaries)
