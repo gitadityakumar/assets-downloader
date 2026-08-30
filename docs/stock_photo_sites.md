@@ -7,9 +7,9 @@ This document tracks all 24 stock photo websites listed in the [GrayGrids 21+ Be
 ## Summary Status
 
 - **Total Sites Listed**: 24
-- **Implemented & Working**: 9 (`unsplash`, `isorepublic`, `picjumbo`, `foodiesfeed`, `picography`, `gratisography`, `startupstockphotos`, `burst`, `jaymantri`)
+- **Implemented & Working**: 10 (`unsplash`, `isorepublic`, `picjumbo`, `foodiesfeed`, `picography`, `gratisography`, `startupstockphotos`, `burst`, `jaymantri`, `publicdomainarchive`)
 - *(Additional Provider Implemented in `ast`)*: `aura` ([Aura.build](https://www.aura.build))
-- **Unimplemented / Blocked / Pending**: 15
+- **Unimplemented / Blocked / Pending**: 14
 
 ---
 
@@ -82,9 +82,10 @@ This document tracks all 24 stock photo websites listed in the [GrayGrids 21+ Be
   - **Status**: Implemented & verified.
   - **Notes**: Search and full master-resolution CC0 photo downloading supported.
 
-- [ ] **Public Domain Archive** ([publicdomainarchive.com](http://publicdomainarchive.com/))
-  - **Status**: Unimplemented.
-  - **Notes**: 100% free public domain and vintage images.
+- [x] **Public Domain Archive** ([publicdomainarchive.com](http://publicdomainarchive.com/))
+  - **CLI Provider**: `publicdomainarchive`
+  - **Status**: Implemented & verified.
+  - **Notes**: Search and high-resolution CC0 photo downloading supported.
 
 - [x] **Foodiesfeed** ([foodiesfeed.com](https://foodiesfeed.com/))
   - **CLI Provider**: `foodiesfeed`

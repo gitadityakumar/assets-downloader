@@ -118,3 +118,16 @@ This document summarizes the network endpoints, transport models, and image down
   * Master image path extracted from Cloudflare R2 bucket (`pub-b214a7fe3192432da1b696eafd081d17.r2.dev`) or Tumblr 1280px CDN.
 * **Download**: Direct GET on master image URL.
 * **License**: CC0 / Free Public Domain.
+
+---
+
+## 11. Public Domain Archive (`publicdomainarchive.com`)
+
+* **Search**: `GET https://publicdomainarchive.com/?s={query}`
+* **Format**: WordPress SSR HTML with vintage and modern photo entries.
+* **Extraction**:
+  * Title extracted from image `alt` attribute.
+  * Author credited as Public Domain Archive.
+  * Image path extracted from `wp-content/uploads/` path.
+* **Download**: Direct GET on image URL with redirect following.
+* **License**: CC0 / 100% Free Public Domain.
