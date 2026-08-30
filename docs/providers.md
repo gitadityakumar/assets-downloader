@@ -92,3 +92,16 @@ This document summarizes the network endpoints, transport models, and image down
   * Master image path extracted from `wp-content/uploads/` path, removing dimension suffixes (`-500x330.jpg`).
 * **Download**: Direct GET on `https://startupstockphotos.com/wp-content/uploads/...` with browser headers.
 * **License**: CC0 / Free Public Domain.
+
+---
+
+## 9. Burst by Shopify (`burst.shopify.com`)
+
+* **Search**: `GET https://burst.shopify.com/photos/search?q={query}`
+* **Format**: SSR HTML photo cards with Shopify CDN assets.
+* **Extraction**:
+  * Title extracted from `data-photo-title` or `alt` attribute.
+  * Author credited as Burst by Shopify.
+  * Master image path extracted from `burst.shopifycdn.com/photos/` removing query parameters (`?width=1000...`).
+* **Download**: Direct GET on `https://burst.shopifycdn.com/photos/...` with browser headers.
+* **License**: Free for Commercial and Non-Commercial Use (Shopify Burst License / CC0).

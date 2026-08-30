@@ -7,9 +7,9 @@ This document tracks all 24 stock photo websites listed in the [GrayGrids 21+ Be
 ## Summary Status
 
 - **Total Sites Listed**: 24
-- **Implemented & Working**: 7 (`unsplash`, `isorepublic`, `picjumbo`, `foodiesfeed`, `picography`, `gratisography`, `startupstockphotos`)
+- **Implemented & Working**: 8 (`unsplash`, `isorepublic`, `picjumbo`, `foodiesfeed`, `picography`, `gratisography`, `startupstockphotos`, `burst`)
 - *(Additional Provider Implemented in `ast`)*: `aura` ([Aura.build](https://www.aura.build))
-- **Unimplemented / Blocked / Pending**: 17
+- **Unimplemented / Blocked / Pending**: 16
 
 ---
 
@@ -28,9 +28,10 @@ This document tracks all 24 stock photo websites listed in the [GrayGrids 21+ Be
   - **Status**: Unimplemented (Blocked by Cloudflare).
   - **Notes**: Automated requests trigger Cloudflare 403 challenge without official API key.
 
-- [ ] **Burst by Shopify** ([shopify.com/stock-photos](https://www.shopify.com/stock-photos))
-  - **Status**: Unimplemented.
-  - **Notes**: E-commerce, business, and lifestyle stock photos.
+- [x] **Burst by Shopify** ([shopify.com/stock-photos](https://www.shopify.com/stock-photos))
+  - **CLI Provider**: `burst`
+  - **Status**: Implemented & verified.
+  - **Notes**: Search and direct full-resolution image downloads supported.
 
 - [x] **Picography** ([picography.co](https://picography.co/))
   - **CLI Provider**: `picography`
