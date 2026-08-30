@@ -12,6 +12,7 @@ const picography = @import("../providers/picography.zig");
 const gratisography = @import("../providers/gratisography.zig");
 const startupstockphotos = @import("../providers/startupstockphotos.zig");
 const burst = @import("../providers/burst.zig");
+const jaymantri = @import("../providers/jaymantri.zig");
 const stdio = @import("../stdio.zig");
 const Allocator = std.mem.Allocator;
 const Io = std.Io;
@@ -60,6 +61,9 @@ fn doSearch(
     if (std.ascii.eqlIgnoreCase(provider_id, "burst")) {
         return burst.search(client, allocator, query, limit);
     }
+    if (std.ascii.eqlIgnoreCase(provider_id, "jaymantri")) {
+        return jaymantri.search(client, allocator, query, limit);
+    }
     return error.UnknownProvider;
 }
 
@@ -98,6 +102,9 @@ fn doDownload(
     if (std.ascii.eqlIgnoreCase(provider_id, "burst")) {
         return burst.download(client, allocator, io, a, output_dir);
     }
+    if (std.ascii.eqlIgnoreCase(provider_id, "jaymantri")) {
+        return jaymantri.download(client, allocator, io, a, output_dir);
+    }
     return error.UnknownProvider;
 }
 
@@ -111,6 +118,7 @@ fn doPrompt(provider_id: []const u8, a: Asset) ?[]const u8 {
     if (std.ascii.eqlIgnoreCase(provider_id, "gratisography")) return gratisography.getPrompt(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "startupstockphotos")) return startupstockphotos.getPrompt(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "burst")) return burst.getPrompt(a);
+    if (std.ascii.eqlIgnoreCase(provider_id, "jaymantri")) return jaymantri.getPrompt(a);
     return a.prompt orelse a.description;
 }
 
@@ -124,6 +132,7 @@ fn doUrl(provider_id: []const u8, a: Asset) ?[]const u8 {
     if (std.ascii.eqlIgnoreCase(provider_id, "gratisography")) return gratisography.getUrl(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "startupstockphotos")) return startupstockphotos.getUrl(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "burst")) return burst.getUrl(a);
+    if (std.ascii.eqlIgnoreCase(provider_id, "jaymantri")) return jaymantri.getUrl(a);
     return a.image_url;
 }
 

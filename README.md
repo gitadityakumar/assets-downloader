@@ -230,6 +230,7 @@ Provider and query may be given as positionals after `s` / `-s`, or with `-P` / 
 | `gratisography` | [Gratisography](https://gratisography.com) | Creative and quirky free stock photos by Ryan McGuire | Direct master resolution photo downloads. |
 | `startupstockphotos` | [Startup Stock Photos](https://startupstockphotos.com) | Free stock photos for startups, bloggers, and creators | Direct master resolution photo downloads. |
 | `burst` | [Burst by Shopify](https://burst.shopify.com) | High-resolution free stock photos for commercial use | Direct master resolution photo downloads. |
+| `jaymantri` | [Jay Mantri](https://jaymantri.com) | Free CC0 coastal, nature, and urban stock photography | Direct master resolution photo downloads. |
 
 List providers at runtime via `ast help` (printed under **PROVIDERS**).
 
@@ -288,6 +289,7 @@ src/
     gratisography.zig
     startupstockphotos.zig
     burst.zig
+    jaymantri.zig
 assets/                    README banner and static assets
 docs/                      Provider implementation notes
 install.sh                 curl | bash installer (Linux release binaries)
