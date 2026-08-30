@@ -12,6 +12,7 @@ const startupstockphotos = @import("startupstockphotos.zig");
 const burst = @import("burst.zig");
 const jaymantri = @import("jaymantri.zig");
 const publicdomainarchive = @import("publicdomainarchive.zig");
+const magdeleine = @import("magdeleine.zig");
 
 pub const ProviderInfo = struct {
     id: []const u8,
@@ -31,6 +32,7 @@ pub fn list() []const ProviderInfo {
         .{ .id = burst.id, .name = burst.name },
         .{ .id = jaymantri.id, .name = jaymantri.name },
         .{ .id = publicdomainarchive.id, .name = publicdomainarchive.name },
+        .{ .id = magdeleine.id, .name = magdeleine.name },
     };
 }
 
@@ -49,5 +51,5 @@ pub fn displayName(id: []const u8) ?[]const u8 {
 }
 
 pub fn availableIds() []const u8 {
-    return "aura, unsplash, isorepublic, picjumbo, foodiesfeed, picography, gratisography, startupstockphotos, burst, jaymantri, publicdomainarchive";
+    return "aura, unsplash, isorepublic, picjumbo, foodiesfeed, picography, gratisography, startupstockphotos, burst, jaymantri, publicdomainarchive, magdeleine";
 }

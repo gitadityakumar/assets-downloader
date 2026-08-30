@@ -7,9 +7,9 @@ This document tracks all 24 stock photo websites listed in the [GrayGrids 21+ Be
 ## Summary Status
 
 - **Total Sites Listed**: 24
-- **Implemented & Working**: 10 (`unsplash`, `isorepublic`, `picjumbo`, `foodiesfeed`, `picography`, `gratisography`, `startupstockphotos`, `burst`, `jaymantri`, `publicdomainarchive`)
+- **Implemented & Working**: 11 (`unsplash`, `isorepublic`, `picjumbo`, `foodiesfeed`, `picography`, `gratisography`, `startupstockphotos`, `burst`, `jaymantri`, `publicdomainarchive`, `magdeleine`)
 - *(Additional Provider Implemented in `ast`)*: `aura` ([Aura.build](https://www.aura.build))
-- **Unimplemented / Blocked / Pending**: 14
+- **Unimplemented / Blocked / Pending**: 13
 
 ---
 
@@ -92,9 +92,10 @@ This document tracks all 24 stock photo websites listed in the [GrayGrids 21+ Be
   - **Status**: Implemented & verified.
   - **Notes**: Search and direct master resolution downloading from Cloudflare R2 supported.
 
-- [ ] **Magdeleine** ([magdeleine.co](http://magdeleine.co/))
-  - **Status**: Unimplemented.
-  - **Notes**: Hand-picked high-res photos with vintage and nature aesthetics.
+- [x] **Magdeleine** ([magdeleine.co](http://magdeleine.co/))
+  - **CLI Provider**: `magdeleine`
+  - **Status**: Implemented & verified.
+  - **Notes**: Search and master full-resolution photo downloading supported.
 
 - [x] **Jay Mantri** ([jaymantri.com](http://jaymantri.com/))
   - **CLI Provider**: `jaymantri`
