@@ -232,6 +232,7 @@ Provider and query may be given as positionals after `s` / `-s`, or with `-P` / 
 | `burst` | [Burst by Shopify](https://burst.shopify.com) | High-resolution free stock photos for commercial use | Direct master resolution photo downloads. |
 | `jaymantri` | [Jay Mantri](https://jaymantri.com) | Free CC0 coastal, nature, and urban stock photography | Direct master resolution photo downloads. |
 | `publicdomainarchive` | [Public Domain Archive](https://publicdomainarchive.com) | 100% free public domain and vintage stock photos | Direct high-resolution photo downloads. |
+| `magdeleine` | [Magdeleine](https://magdeleine.co) | Hand-picked free high-resolution stock photography | Direct master resolution photo downloads. |
 
 List providers at runtime via `ast help` (printed under **PROVIDERS**).
 
@@ -292,6 +293,7 @@ src/
     burst.zig
     jaymantri.zig
     publicdomainarchive.zig
+    magdeleine.zig
 assets/                    README banner and static assets
 docs/                      Provider implementation notes
 install.sh                 curl | bash installer (Linux release binaries)

@@ -131,3 +131,16 @@ This document summarizes the network endpoints, transport models, and image down
   * Image path extracted from `wp-content/uploads/` path.
 * **Download**: Direct GET on image URL with redirect following.
 * **License**: CC0 / 100% Free Public Domain.
+
+---
+
+## 12. Magdeleine (`magdeleine.co`)
+
+* **Search**: `GET https://magdeleine.co/?s={query}`
+* **Format**: Curated photography feed with photo cards and author attribution.
+* **Extraction**:
+  * Title extracted and formatted from post slug.
+  * Author extracted from photographer profile link.
+  * Master image path extracted by stripping geometry suffixes (`-500x375`, `-860x683`) from `wp-content/uploads/` image URLs.
+* **Download**: Direct GET on original full-resolution master JPEG.
+* **License**: CC0 / Free High-Resolution Stock Photos.
