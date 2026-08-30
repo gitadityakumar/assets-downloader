@@ -7,9 +7,9 @@ This document tracks all 24 stock photo websites listed in the [GrayGrids 21+ Be
 ## Summary Status
 
 - **Total Sites Listed**: 24
-- **Implemented & Working**: 8 (`unsplash`, `isorepublic`, `picjumbo`, `foodiesfeed`, `picography`, `gratisography`, `startupstockphotos`, `burst`)
+- **Implemented & Working**: 9 (`unsplash`, `isorepublic`, `picjumbo`, `foodiesfeed`, `picography`, `gratisography`, `startupstockphotos`, `burst`, `jaymantri`)
 - *(Additional Provider Implemented in `ast`)*: `aura` ([Aura.build](https://www.aura.build))
-- **Unimplemented / Blocked / Pending**: 16
+- **Unimplemented / Blocked / Pending**: 15
 
 ---
 
@@ -95,9 +95,10 @@ This document tracks all 24 stock photo websites listed in the [GrayGrids 21+ Be
   - **Status**: Unimplemented.
   - **Notes**: Hand-picked high-res photos with vintage and nature aesthetics.
 
-- [ ] **Jay Mantri** ([jaymantri.com](http://jaymantri.com/))
-  - **Status**: Unimplemented.
-  - **Notes**: Free CC0 city, architectural, and landscape photography.
+- [x] **Jay Mantri** ([jaymantri.com](http://jaymantri.com/))
+  - **CLI Provider**: `jaymantri`
+  - **Status**: Implemented & verified.
+  - **Notes**: Search and full master-resolution CC0 photo downloading supported.
 
 - [ ] **Death to Stock Photos** ([deathtothestockphoto.com](http://deathtothestockphoto.com/))
   - **Status**: Unimplemented.

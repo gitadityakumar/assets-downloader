@@ -105,3 +105,16 @@ This document summarizes the network endpoints, transport models, and image down
   * Master image path extracted from `burst.shopifycdn.com/photos/` removing query parameters (`?width=1000...`).
 * **Download**: Direct GET on `https://burst.shopifycdn.com/photos/...` with browser headers.
 * **License**: Free for Commercial and Non-Commercial Use (Shopify Burst License / CC0).
+
+---
+
+## 10. Jay Mantri (`jaymantri.com`)
+
+* **Search**: `GET https://jaymantri.com/api/read/json?num=50&type=photo`
+* **Format**: JSON feed of CC0 photography with tags and captions.
+* **Extraction**:
+  * Title extracted from photo tags or slug.
+  * Author credited as Jay Mantri.
+  * Master image path extracted from Cloudflare R2 bucket (`pub-b214a7fe3192432da1b696eafd081d17.r2.dev`) or Tumblr 1280px CDN.
+* **Download**: Direct GET on master image URL.
+* **License**: CC0 / Free Public Domain.
