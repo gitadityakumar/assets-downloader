@@ -235,6 +235,7 @@ Provider and query may be given as positionals after `s` / `-s`, or with `-P` / 
 | `magdeleine` | [Magdeleine](https://magdeleine.co) | Hand-picked free high-resolution stock photography | Direct master resolution photo downloads. |
 | `splitshire` | [SplitShire](https://splitshire.com) | Free stock photos and artwork by Daniel Nanescu & community | Direct high-resolution photo downloads. |
 | `deviantart` | [DeviantArt](https://deviantart.com) | Creative reference photos, stock imagery, and digital art | Direct image downloads via Wixmp CDN. |
+| `negativespace` | [NegativeSpace](https://negativespace.co) | Free high-resolution CC0 stock photography | Direct master full-resolution photo downloads. |
 
 List providers at runtime via `ast help` (printed under **PROVIDERS**).
 
@@ -298,6 +299,7 @@ src/
     magdeleine.zig
     splitshire.zig
     deviantart.zig
+    negativespace.zig
 assets/                    README banner and static assets
 docs/                      Provider implementation notes
 install.sh                 curl | bash installer (Linux release binaries)
