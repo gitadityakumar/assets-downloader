@@ -157,3 +157,16 @@ This document summarizes the network endpoints, transport models, and image down
   * Author credited from user profile or Daniel Nanescu.
 * **Download**: Direct GET on high-resolution CDN assets.
 * **License**: Free for Personal and Commercial Use (SplitShire License / CC0).
+
+---
+
+## 14. DeviantArt (`deviantart.com`)
+
+* **Search**: `GET https://www.deviantart.com/tag/{tag}`
+* **Format**: SSR HTML with artwork cards, titles, author links, and direct Wixmp CDN URLs.
+* **Extraction**:
+  * Title extracted and HTML unescaped from image `alt` attribute.
+  * Author parsed from artwork page link (`/{author}/art/...`).
+  * Image path extracted directly from signed Wixmp CDN URLs.
+* **Download**: Direct GET on Wixmp CDN URL with browser headers.
+* **License**: Free Creative Community Stock / Artwork Reference.
