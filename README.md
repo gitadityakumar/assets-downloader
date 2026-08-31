@@ -234,6 +234,7 @@ Provider and query may be given as positionals after `s` / `-s`, or with `-P` / 
 | `publicdomainarchive` | [Public Domain Archive](https://publicdomainarchive.com) | 100% free public domain and vintage stock photos | Direct high-resolution photo downloads. |
 | `magdeleine` | [Magdeleine](https://magdeleine.co) | Hand-picked free high-resolution stock photography | Direct master resolution photo downloads. |
 | `splitshire` | [SplitShire](https://splitshire.com) | Free stock photos and artwork by Daniel Nanescu & community | Direct high-resolution photo downloads. |
+| `deviantart` | [DeviantArt](https://deviantart.com) | Creative reference photos, stock imagery, and digital art | Direct image downloads via Wixmp CDN. |
 
 List providers at runtime via `ast help` (printed under **PROVIDERS**).
 
@@ -296,6 +297,7 @@ src/
     publicdomainarchive.zig
     magdeleine.zig
     splitshire.zig
+    deviantart.zig
 assets/                    README banner and static assets
 docs/                      Provider implementation notes
 install.sh                 curl | bash installer (Linux release binaries)

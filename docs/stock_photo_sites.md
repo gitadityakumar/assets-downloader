@@ -7,9 +7,9 @@ This document tracks all 24 stock photo websites listed in the [GrayGrids 21+ Be
 ## Summary Status
 
 - **Total Sites Listed**: 24
-- **Implemented & Working**: 12 (`unsplash`, `isorepublic`, `picjumbo`, `foodiesfeed`, `picography`, `gratisography`, `startupstockphotos`, `burst`, `jaymantri`, `publicdomainarchive`, `magdeleine`, `splitshire`)
+- **Implemented & Working**: 13 (`unsplash`, `isorepublic`, `picjumbo`, `foodiesfeed`, `picography`, `gratisography`, `startupstockphotos`, `burst`, `jaymantri`, `publicdomainarchive`, `magdeleine`, `splitshire`, `deviantart`)
 - *(Additional Provider Implemented in `ast`)*: `aura` ([Aura.build](https://www.aura.build))
-- **Unimplemented / Blocked / Pending**: 12
+- **Unimplemented / Blocked / Pending**: 11
 
 ---
 
@@ -115,9 +115,10 @@ This document tracks all 24 stock photo websites listed in the [GrayGrids 21+ Be
   - **Status**: Unimplemented.
   - **Notes**: Large repository of free stock photography.
 
-- [ ] **DeviantArt** ([deviantart.com](http://www.deviantart.com/))
-  - **Status**: Unimplemented.
-  - **Notes**: Community art platform; requires auth/API for asset retrieval.
+- [x] **DeviantArt** ([deviantart.com](http://www.deviantart.com/))
+  - **CLI Provider**: `deviantart`
+  - **Status**: Implemented & verified.
+  - **Notes**: Tag search and direct image downloading via Wixmp CDN supported.
 
 - [ ] **Reshot** ([reshot.com](https://www.reshot.com/))
   - **Status**: Unimplemented.
