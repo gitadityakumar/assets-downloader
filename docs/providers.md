@@ -170,3 +170,16 @@ This document summarizes the network endpoints, transport models, and image down
   * Image path extracted directly from signed Wixmp CDN URLs.
 * **Download**: Direct GET on Wixmp CDN URL with browser headers.
 * **License**: Free Creative Community Stock / Artwork Reference.
+
+---
+
+## 15. NegativeSpace (`negativespace.co`)
+
+* **Search**: `GET https://negativespace.co/?s={query}`
+* **Format**: WordPress photography feed with card images and post links.
+* **Extraction**:
+  * Title extracted and unescaped from image `alt` attribute.
+  * Slug ID parsed from post permalink.
+  * Master full-resolution URL extracted by stripping geometry suffixes (`-1062x708`) from `wp-content/uploads/` image URLs.
+* **Download**: Direct GET on original full-resolution master photo JPEG/PNG (up to 20+ MB).
+* **License**: CC0 / 100% Free High-Resolution Stock Photos.

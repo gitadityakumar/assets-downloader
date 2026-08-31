@@ -8,7 +8,7 @@ This document tracks all 24 stock photo websites listed in the [GrayGrids 21+ Be
 
 - **Total Sites Listed**: 24
 - **Implemented & Working**: 13 (`unsplash`, `isorepublic`, `picjumbo`, `foodiesfeed`, `picography`, `gratisography`, `startupstockphotos`, `burst`, `jaymantri`, `publicdomainarchive`, `magdeleine`, `splitshire`, `deviantart`)
-- *(Additional Provider Implemented in `ast`)*: `aura` ([Aura.build](https://www.aura.build))
+- *(Additional Providers Implemented in `ast`)*: `aura` ([Aura.build](https://www.aura.build)), `negativespace` ([NegativeSpace.co](https://negativespace.co))
 - **Unimplemented / Blocked / Pending**: 11
 
 ---
