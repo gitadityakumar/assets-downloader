@@ -144,3 +144,16 @@ This document summarizes the network endpoints, transport models, and image down
   * Master image path extracted by stripping geometry suffixes (`-500x375`, `-860x683`) from `wp-content/uploads/` image URLs.
 * **Download**: Direct GET on original full-resolution master JPEG.
 * **License**: CC0 / Free High-Resolution Stock Photos.
+
+---
+
+## 13. SplitShire (`splitshire.com`)
+
+* **Search**: `GET https://www.splitshire.com/?s={query}`
+* **Format**: Next.js SSR with embedded `__NEXT_DATA__` image collections.
+* **Extraction**:
+  * Extracted image collections across photography and design categories.
+  * Query token matching across title, prompt, description, and slug.
+  * Author credited from user profile or Daniel Nanescu.
+* **Download**: Direct GET on high-resolution CDN assets.
+* **License**: Free for Personal and Commercial Use (SplitShire License / CC0).

@@ -233,6 +233,7 @@ Provider and query may be given as positionals after `s` / `-s`, or with `-P` / 
 | `jaymantri` | [Jay Mantri](https://jaymantri.com) | Free CC0 coastal, nature, and urban stock photography | Direct master resolution photo downloads. |
 | `publicdomainarchive` | [Public Domain Archive](https://publicdomainarchive.com) | 100% free public domain and vintage stock photos | Direct high-resolution photo downloads. |
 | `magdeleine` | [Magdeleine](https://magdeleine.co) | Hand-picked free high-resolution stock photography | Direct master resolution photo downloads. |
+| `splitshire` | [SplitShire](https://splitshire.com) | Free stock photos and artwork by Daniel Nanescu & community | Direct high-resolution photo downloads. |
 
 List providers at runtime via `ast help` (printed under **PROVIDERS**).
 
@@ -294,6 +295,7 @@ src/
     jaymantri.zig
     publicdomainarchive.zig
     magdeleine.zig
+    splitshire.zig
 assets/                    README banner and static assets
 docs/                      Provider implementation notes
 install.sh                 curl | bash installer (Linux release binaries)
