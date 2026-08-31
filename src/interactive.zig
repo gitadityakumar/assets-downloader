@@ -18,6 +18,7 @@ const magdeleine = @import("providers/magdeleine.zig");
 const splitshire = @import("providers/splitshire.zig");
 const deviantart = @import("providers/deviantart.zig");
 const negativespace = @import("providers/negativespace.zig");
+const skitterphoto = @import("providers/skitterphoto.zig");
 const registry = @import("providers/registry.zig");
 const stdio = @import("stdio.zig");
 const Allocator = std.mem.Allocator;
@@ -81,6 +82,9 @@ fn searchProvider(
     if (std.ascii.eqlIgnoreCase(provider_id, "negativespace")) {
         return negativespace.search(client, allocator, query, config.default_limit);
     }
+    if (std.ascii.eqlIgnoreCase(provider_id, "skitterphoto")) {
+        return skitterphoto.search(client, allocator, query, config.default_limit);
+    }
     return error.UnknownProvider;
 }
 
@@ -136,6 +140,9 @@ fn downloadAsset(
     if (std.ascii.eqlIgnoreCase(provider_id, "negativespace")) {
         return negativespace.download(client, allocator, io, a, config.default_output_dir);
     }
+    if (std.ascii.eqlIgnoreCase(provider_id, "skitterphoto")) {
+        return skitterphoto.download(client, allocator, io, a, config.default_output_dir);
+    }
     return error.UnknownProvider;
 }
 
@@ -155,6 +162,7 @@ fn promptOf(provider_id: []const u8, a: Asset) ?[]const u8 {
     if (std.ascii.eqlIgnoreCase(provider_id, "splitshire")) return splitshire.getPrompt(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "deviantart")) return deviantart.getPrompt(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "negativespace")) return negativespace.getPrompt(a);
+    if (std.ascii.eqlIgnoreCase(provider_id, "skitterphoto")) return skitterphoto.getPrompt(a);
     return a.prompt;
 }
 
@@ -174,6 +182,7 @@ fn urlOf(provider_id: []const u8, a: Asset) ?[]const u8 {
     if (std.ascii.eqlIgnoreCase(provider_id, "splitshire")) return splitshire.getUrl(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "deviantart")) return deviantart.getUrl(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "negativespace")) return negativespace.getUrl(a);
+    if (std.ascii.eqlIgnoreCase(provider_id, "skitterphoto")) return skitterphoto.getUrl(a);
     return a.image_url;
 }
 
