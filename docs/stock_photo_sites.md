@@ -7,9 +7,9 @@ This document tracks all 24 stock photo websites listed in the [GrayGrids 21+ Be
 ## Summary Status
 
 - **Total Sites Listed**: 24
-- **Implemented & Working**: 11 (`unsplash`, `isorepublic`, `picjumbo`, `foodiesfeed`, `picography`, `gratisography`, `startupstockphotos`, `burst`, `jaymantri`, `publicdomainarchive`, `magdeleine`)
+- **Implemented & Working**: 12 (`unsplash`, `isorepublic`, `picjumbo`, `foodiesfeed`, `picography`, `gratisography`, `startupstockphotos`, `burst`, `jaymantri`, `publicdomainarchive`, `magdeleine`, `splitshire`)
 - *(Additional Provider Implemented in `ast`)*: `aura` ([Aura.build](https://www.aura.build))
-- **Unimplemented / Blocked / Pending**: 13
+- **Unimplemented / Blocked / Pending**: 12
 
 ---
 
@@ -51,9 +51,10 @@ This document tracks all 24 stock photo websites listed in the [GrayGrids 21+ Be
   - **Status**: Implemented & verified.
   - **Notes**: Search and full master-resolution photo downloading supported.
 
-- [ ] **SplitShire** ([splitshire.com](https://www.splitshire.com/))
-  - **Status**: Unimplemented.
-  - **Notes**: Free stock photos by Daniel Nanescu (DigitalOcean Spaces CDN).
+- [x] **SplitShire** ([splitshire.com](https://www.splitshire.com/))
+  - **CLI Provider**: `splitshire`
+  - **Status**: Implemented & verified.
+  - **Notes**: Search and high-resolution photo and artwork downloading supported.
 
 - [ ] **Rawpixel** ([rawpixel.com](https://www.rawpixel.com/))
   - **Status**: Unimplemented.
