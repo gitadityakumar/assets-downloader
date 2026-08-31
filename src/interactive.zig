@@ -15,6 +15,7 @@ const burst = @import("providers/burst.zig");
 const jaymantri = @import("providers/jaymantri.zig");
 const publicdomainarchive = @import("providers/publicdomainarchive.zig");
 const magdeleine = @import("providers/magdeleine.zig");
+const splitshire = @import("providers/splitshire.zig");
 const registry = @import("providers/registry.zig");
 const stdio = @import("stdio.zig");
 const Allocator = std.mem.Allocator;
@@ -69,6 +70,9 @@ fn searchProvider(
     if (std.ascii.eqlIgnoreCase(provider_id, "magdeleine")) {
         return magdeleine.search(client, allocator, query, config.default_limit);
     }
+    if (std.ascii.eqlIgnoreCase(provider_id, "splitshire")) {
+        return splitshire.search(client, allocator, query, config.default_limit);
+    }
     return error.UnknownProvider;
 }
 
@@ -115,6 +119,9 @@ fn downloadAsset(
     if (std.ascii.eqlIgnoreCase(provider_id, "magdeleine")) {
         return magdeleine.download(client, allocator, io, a, config.default_output_dir);
     }
+    if (std.ascii.eqlIgnoreCase(provider_id, "splitshire")) {
+        return splitshire.download(client, allocator, io, a, config.default_output_dir);
+    }
     return error.UnknownProvider;
 }
 
@@ -131,6 +138,7 @@ fn promptOf(provider_id: []const u8, a: Asset) ?[]const u8 {
     if (std.ascii.eqlIgnoreCase(provider_id, "jaymantri")) return jaymantri.getPrompt(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "publicdomainarchive")) return publicdomainarchive.getPrompt(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "magdeleine")) return magdeleine.getPrompt(a);
+    if (std.ascii.eqlIgnoreCase(provider_id, "splitshire")) return splitshire.getPrompt(a);
     return a.prompt;
 }
 
@@ -147,6 +155,7 @@ fn urlOf(provider_id: []const u8, a: Asset) ?[]const u8 {
     if (std.ascii.eqlIgnoreCase(provider_id, "jaymantri")) return jaymantri.getUrl(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "publicdomainarchive")) return publicdomainarchive.getUrl(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "magdeleine")) return magdeleine.getUrl(a);
+    if (std.ascii.eqlIgnoreCase(provider_id, "splitshire")) return splitshire.getUrl(a);
     return a.image_url;
 }
 
