@@ -183,3 +183,15 @@ This document summarizes the network endpoints, transport models, and image down
   * Master full-resolution URL extracted by stripping geometry suffixes (`-1062x708`) from `wp-content/uploads/` image URLs.
 * **Download**: Direct GET on original full-resolution master photo JPEG/PNG (up to 20+ MB).
 * **License**: CC0 / 100% Free High-Resolution Stock Photos.
+
+---
+
+## 16. Skitterphoto (`skitterphoto.com`)
+
+* **Search**: `GET https://skitterphoto.com/photos/tags/{tag}`
+* **Format**: Clean SSR photography feed with photo IDs, slugs, and CDN thumbnails.
+* **Extraction**:
+  * Title formatted and capitalized from URL slug.
+  * High-resolution photo asset path extracted directly (`/photos/skitterphoto-{id}-default.jpg`).
+* **Download**: Direct GET on high-resolution image URL.
+* **License**: CC0 / 100% Free Public Domain.
