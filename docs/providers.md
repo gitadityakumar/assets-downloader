@@ -233,3 +233,16 @@ This document summarizes the network endpoints, transport models, and image down
   * ImageKit CDN master URL extracted by stripping query size parameters (`?tr=...`).
 * **Download**: Direct GET on master full-resolution JPEG/WebP asset via CloudFront/ImageKit CDN.
 * **License**: CC0 / 100% Free Public Domain (Do whatever you want).
+
+---
+
+## 20. Free Nature Stock (`freenaturestock.com`)
+
+* **Search**: `GET https://freenaturestock.com/?s={query}`
+* **Format**: Dedicated nature, wildlife, and landscape photography collection by Adrian Pelletier.
+* **Extraction**:
+  * Clean image IDs extracted from `/photos/thumb/freenaturestock-{id}.jpg`.
+  * Alt title descriptions extracted and HTML unescaped.
+  * Direct full-resolution master photo URLs constructed via Cloudflare CDN (`https://cdn.freenaturestock.com/photos/freenaturestock-{id}.jpg`).
+* **Download**: Direct GET on master original camera photo JPEG files (up to 20+ MB).
+* **License**: CC0 / 100% Free Public Domain.

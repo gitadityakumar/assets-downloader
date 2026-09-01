@@ -240,6 +240,7 @@ Provider and query may be given as positionals after `s` / `-s`, or with `-P` / 
 | `libreshot` | [LibreShot](https://libreshot.com) | Free CC0 stock photos by Martin Vorel | Direct master full-resolution photo downloads. |
 | `moveast` | [Moveast](https://moveast.me) | Free CC0 travel and documentary photography by João Pacheco | Direct high-resolution photo downloads. |
 | `cupcake` | [Cupcake](https://cupcake.nilssonlee.se) | Free CC0 stock photography by Jonas Nilsson Lee | Direct master resolution photo downloads. |
+| `freenaturestock` | [Free Nature Stock](https://freenaturestock.com) | Free CC0 nature & wildlife stock photography by Adrian Pelletier | Direct master full-resolution photo downloads (up to 20+ MB). |
 
 List providers at runtime via `ast help` (printed under **PROVIDERS**).
 
@@ -308,6 +309,7 @@ src/
     libreshot.zig
     moveast.zig
     cupcake.zig
+    freenaturestock.zig
 assets/                    README banner and static assets
 docs/                      Provider implementation notes
 install.sh                 curl | bash installer (Linux release binaries)
