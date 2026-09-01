@@ -19,6 +19,7 @@ const negativespace = @import("negativespace.zig");
 const skitterphoto = @import("skitterphoto.zig");
 const libreshot = @import("libreshot.zig");
 const moveast = @import("moveast.zig");
+const cupcake = @import("cupcake.zig");
 
 pub const ProviderInfo = struct {
     id: []const u8,
@@ -45,6 +46,7 @@ pub fn list() []const ProviderInfo {
         .{ .id = skitterphoto.id, .name = skitterphoto.name },
         .{ .id = libreshot.id, .name = libreshot.name },
         .{ .id = moveast.id, .name = moveast.name },
+        .{ .id = cupcake.id, .name = cupcake.name },
     };
 }
 
@@ -63,5 +65,5 @@ pub fn displayName(id: []const u8) ?[]const u8 {
 }
 
 pub fn availableIds() []const u8 {
-    return "aura, unsplash, isorepublic, picjumbo, foodiesfeed, picography, gratisography, startupstockphotos, burst, jaymantri, publicdomainarchive, magdeleine, splitshire, deviantart, negativespace, skitterphoto, libreshot, moveast";
+    return "aura, unsplash, isorepublic, picjumbo, foodiesfeed, picography, gratisography, startupstockphotos, burst, jaymantri, publicdomainarchive, magdeleine, splitshire, deviantart, negativespace, skitterphoto, libreshot, moveast, cupcake";
 }
