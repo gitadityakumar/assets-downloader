@@ -19,6 +19,7 @@ const splitshire = @import("providers/splitshire.zig");
 const deviantart = @import("providers/deviantart.zig");
 const negativespace = @import("providers/negativespace.zig");
 const skitterphoto = @import("providers/skitterphoto.zig");
+const libreshot = @import("providers/libreshot.zig");
 const registry = @import("providers/registry.zig");
 const stdio = @import("stdio.zig");
 const Allocator = std.mem.Allocator;
@@ -85,6 +86,9 @@ fn searchProvider(
     if (std.ascii.eqlIgnoreCase(provider_id, "skitterphoto")) {
         return skitterphoto.search(client, allocator, query, config.default_limit);
     }
+    if (std.ascii.eqlIgnoreCase(provider_id, "libreshot")) {
+        return libreshot.search(client, allocator, query, config.default_limit);
+    }
     return error.UnknownProvider;
 }
 
@@ -143,6 +147,9 @@ fn downloadAsset(
     if (std.ascii.eqlIgnoreCase(provider_id, "skitterphoto")) {
         return skitterphoto.download(client, allocator, io, a, config.default_output_dir);
     }
+    if (std.ascii.eqlIgnoreCase(provider_id, "libreshot")) {
+        return libreshot.download(client, allocator, io, a, config.default_output_dir);
+    }
     return error.UnknownProvider;
 }
 
@@ -163,6 +170,7 @@ fn promptOf(provider_id: []const u8, a: Asset) ?[]const u8 {
     if (std.ascii.eqlIgnoreCase(provider_id, "deviantart")) return deviantart.getPrompt(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "negativespace")) return negativespace.getPrompt(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "skitterphoto")) return skitterphoto.getPrompt(a);
+    if (std.ascii.eqlIgnoreCase(provider_id, "libreshot")) return libreshot.getPrompt(a);
     return a.prompt;
 }
 
@@ -183,6 +191,7 @@ fn urlOf(provider_id: []const u8, a: Asset) ?[]const u8 {
     if (std.ascii.eqlIgnoreCase(provider_id, "deviantart")) return deviantart.getUrl(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "negativespace")) return negativespace.getUrl(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "skitterphoto")) return skitterphoto.getUrl(a);
+    if (std.ascii.eqlIgnoreCase(provider_id, "libreshot")) return libreshot.getUrl(a);
     return a.image_url;
 }
 

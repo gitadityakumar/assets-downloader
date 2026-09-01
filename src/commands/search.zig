@@ -19,6 +19,7 @@ const splitshire = @import("../providers/splitshire.zig");
 const deviantart = @import("../providers/deviantart.zig");
 const negativespace = @import("../providers/negativespace.zig");
 const skitterphoto = @import("../providers/skitterphoto.zig");
+const libreshot = @import("../providers/libreshot.zig");
 const stdio = @import("../stdio.zig");
 const Allocator = std.mem.Allocator;
 const Io = std.Io;
@@ -88,6 +89,9 @@ fn doSearch(
     if (std.ascii.eqlIgnoreCase(provider_id, "skitterphoto")) {
         return skitterphoto.search(client, allocator, query, limit);
     }
+    if (std.ascii.eqlIgnoreCase(provider_id, "libreshot")) {
+        return libreshot.search(client, allocator, query, limit);
+    }
     return error.UnknownProvider;
 }
 
@@ -147,6 +151,9 @@ fn doDownload(
     if (std.ascii.eqlIgnoreCase(provider_id, "skitterphoto")) {
         return skitterphoto.download(client, allocator, io, a, output_dir);
     }
+    if (std.ascii.eqlIgnoreCase(provider_id, "libreshot")) {
+        return libreshot.download(client, allocator, io, a, output_dir);
+    }
     return error.UnknownProvider;
 }
 
@@ -167,6 +174,7 @@ fn doPrompt(provider_id: []const u8, a: Asset) ?[]const u8 {
     if (std.ascii.eqlIgnoreCase(provider_id, "deviantart")) return deviantart.getPrompt(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "negativespace")) return negativespace.getPrompt(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "skitterphoto")) return skitterphoto.getPrompt(a);
+    if (std.ascii.eqlIgnoreCase(provider_id, "libreshot")) return libreshot.getPrompt(a);
     return a.prompt orelse a.description;
 }
 
@@ -187,6 +195,7 @@ fn doUrl(provider_id: []const u8, a: Asset) ?[]const u8 {
     if (std.ascii.eqlIgnoreCase(provider_id, "deviantart")) return deviantart.getUrl(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "negativespace")) return negativespace.getUrl(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "skitterphoto")) return skitterphoto.getUrl(a);
+    if (std.ascii.eqlIgnoreCase(provider_id, "libreshot")) return libreshot.getUrl(a);
     return a.image_url;
 }
 
