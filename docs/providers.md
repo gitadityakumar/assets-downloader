@@ -221,3 +221,15 @@ This document summarizes the network endpoints, transport models, and image down
   * 1280px / 500px CDN image endpoints.
 * **Download**: Direct GET on high-resolution Tumblr CDN JPEG assets.
 * **License**: CC0 / 100% Free Public Domain.
+
+---
+
+## 19. Cupcake (`cupcake.nilssonlee.se`)
+
+* **Search**: `GET https://cupcake.nilssonlee.se/`
+* **Format**: Photography feed by Swedish photographer Jonas Nilsson Lee with rich `alt` descriptions.
+* **Extraction**:
+  * Rich visual descriptions extracted and HTML unescaped from `alt` attributes.
+  * ImageKit CDN master URL extracted by stripping query size parameters (`?tr=...`).
+* **Download**: Direct GET on master full-resolution JPEG/WebP asset via CloudFront/ImageKit CDN.
+* **License**: CC0 / 100% Free Public Domain (Do whatever you want).
