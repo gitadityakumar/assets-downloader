@@ -17,6 +17,7 @@ const splitshire = @import("splitshire.zig");
 const deviantart = @import("deviantart.zig");
 const negativespace = @import("negativespace.zig");
 const skitterphoto = @import("skitterphoto.zig");
+const libreshot = @import("libreshot.zig");
 
 pub const ProviderInfo = struct {
     id: []const u8,
@@ -41,6 +42,7 @@ pub fn list() []const ProviderInfo {
         .{ .id = deviantart.id, .name = deviantart.name },
         .{ .id = negativespace.id, .name = negativespace.name },
         .{ .id = skitterphoto.id, .name = skitterphoto.name },
+        .{ .id = libreshot.id, .name = libreshot.name },
     };
 }
 
@@ -59,5 +61,5 @@ pub fn displayName(id: []const u8) ?[]const u8 {
 }
 
 pub fn availableIds() []const u8 {
-    return "aura, unsplash, isorepublic, picjumbo, foodiesfeed, picography, gratisography, startupstockphotos, burst, jaymantri, publicdomainarchive, magdeleine, splitshire, deviantart, negativespace, skitterphoto";
+    return "aura, unsplash, isorepublic, picjumbo, foodiesfeed, picography, gratisography, startupstockphotos, burst, jaymantri, publicdomainarchive, magdeleine, splitshire, deviantart, negativespace, skitterphoto, libreshot";
 }

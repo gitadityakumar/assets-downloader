@@ -195,3 +195,16 @@ This document summarizes the network endpoints, transport models, and image down
   * High-resolution photo asset path extracted directly (`/photos/skitterphoto-{id}-default.jpg`).
 * **Download**: Direct GET on high-resolution image URL.
 * **License**: CC0 / 100% Free Public Domain.
+
+---
+
+## 17. LibreShot (`libreshot.com`)
+
+* **Search**: `GET https://libreshot.com/?s={query}`
+* **Format**: WordPress photography feed by Martin Vorel with lazy-loaded image cards.
+* **Extraction**:
+  * Title extracted and HTML unescaped from image `alt` attribute.
+  * Slug ID parsed from post permalink.
+  * Master full-resolution URL extracted by stripping geometry suffixes (`-508x339`, `-508x300`) from `wp-content/uploads/` image URLs.
+* **Download**: Direct GET on original full-resolution master photo JPEG/PNG (up to 10+ MB).
+* **License**: CC0 / Free Public Domain Stock Photos.
