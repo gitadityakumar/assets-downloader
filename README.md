@@ -238,6 +238,7 @@ Provider and query may be given as positionals after `s` / `-s`, or with `-P` / 
 | `negativespace` | [NegativeSpace](https://negativespace.co) | Free high-resolution CC0 stock photography | Direct master full-resolution photo downloads. |
 | `skitterphoto` | [Skitterphoto](https://skitterphoto.com) | 100% free CC0 public domain photography | Direct high-resolution photo downloads. |
 | `libreshot` | [LibreShot](https://libreshot.com) | Free CC0 stock photos by Martin Vorel | Direct master full-resolution photo downloads. |
+| `moveast` | [Moveast](https://moveast.me) | Free CC0 travel and documentary photography by João Pacheco | Direct high-resolution photo downloads. |
 
 List providers at runtime via `ast help` (printed under **PROVIDERS**).
 
@@ -304,6 +305,7 @@ src/
     negativespace.zig
     skitterphoto.zig
     libreshot.zig
+    moveast.zig
 assets/                    README banner and static assets
 docs/                      Provider implementation notes
 install.sh                 curl | bash installer (Linux release binaries)
