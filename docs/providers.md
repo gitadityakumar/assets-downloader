@@ -208,3 +208,16 @@ This document summarizes the network endpoints, transport models, and image down
   * Master full-resolution URL extracted by stripping geometry suffixes (`-508x339`, `-508x300`) from `wp-content/uploads/` image URLs.
 * **Download**: Direct GET on original full-resolution master photo JPEG/PNG (up to 10+ MB).
 * **License**: CC0 / Free Public Domain Stock Photos.
+
+---
+
+## 18. Moveast (`moveast.me`)
+
+* **Search**: `GET https://moveast.me/api/read/json?tagged={tag}&num={limit}` (with fallback to main feed).
+* **Format**: Tumblr JSON feed by Portuguese designer/traveler João Pacheco.
+* **Extraction**:
+  * Clean HTML stripped from photo captions.
+  * Tag buffer and slug fallback for descriptive search prompts.
+  * 1280px / 500px CDN image endpoints.
+* **Download**: Direct GET on high-resolution Tumblr CDN JPEG assets.
+* **License**: CC0 / 100% Free Public Domain.
