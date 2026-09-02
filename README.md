@@ -244,6 +244,7 @@ Provider and query may be given as positionals after `s` / `-s`, or with `-P` / 
 | `goodfreephotos` | [Good Free Photos](https://goodfreephotos.com) | Free CC0 public domain photos, state parks, and landmarks by Yinan Chen | Direct master full-resolution photo downloads. |
 | `wikimedia` | [Wikimedia Commons](https://commons.wikimedia.org) | Freely licensed and public domain educational & stock media repository | Direct master full-resolution image downloads. |
 | `vecteezy` | [Vecteezy](https://vecteezy.com) | Free high-resolution stock photography and design assets | Direct master full-resolution photo downloads (up to 15+ MB). |
+| `nasa` | [NASA Image Library](https://images.nasa.gov) | Public domain space exploration, aeronautics, and astronomical imagery | Direct master full-resolution photo & vector asset downloads. |
 
 List providers at runtime via `ast help` (printed under **PROVIDERS**).
 
@@ -316,6 +317,7 @@ src/
     goodfreephotos.zig
     wikimedia.zig
     vecteezy.zig
+    nasa.zig
 assets/                    README banner and static assets
 docs/                      Provider implementation notes
 install.sh                 curl | bash installer (Linux release binaries)
