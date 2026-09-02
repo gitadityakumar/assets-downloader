@@ -7,9 +7,9 @@ This document tracks all 24 stock photo websites listed in the [GrayGrids 21+ Be
 ## Summary Status
 
 - **Total Sites Listed**: 24
-- **Implemented & Working**: 13 (`unsplash`, `isorepublic`, `picjumbo`, `foodiesfeed`, `picography`, `gratisography`, `startupstockphotos`, `burst`, `jaymantri`, `publicdomainarchive`, `magdeleine`, `splitshire`, `deviantart`)
+- **Implemented & Working**: 14 (`unsplash`, `isorepublic`, `picjumbo`, `foodiesfeed`, `picography`, `gratisography`, `startupstockphotos`, `burst`, `jaymantri`, `publicdomainarchive`, `magdeleine`, `splitshire`, `deviantart`, `vecteezy`)
 - *(Additional Providers Implemented in `ast`)*: `aura` ([Aura.build](https://www.aura.build)), `negativespace` ([NegativeSpace.co](https://negativespace.co)), `skitterphoto` ([Skitterphoto.com](https://skitterphoto.com)), `libreshot` ([LibreShot.com](https://libreshot.com)), `moveast` ([Moveast.me](https://moveast.me)), `cupcake` ([Cupcake](https://cupcake.nilssonlee.se)), `freenaturestock` ([FreeNatureStock](https://freenaturestock.com)), `goodfreephotos` ([Good Free Photos](https://goodfreephotos.com)), `wikimedia` ([Wikimedia Commons](https://commons.wikimedia.org))
-- **Unimplemented / Blocked / Pending**: 11
+- **Unimplemented / Blocked / Pending**: 10
 
 ---
 
@@ -38,9 +38,10 @@ This document tracks all 24 stock photo websites listed in the [GrayGrids 21+ Be
   - **Status**: Implemented & verified.
   - **Notes**: Search and full master-resolution CC0 photo downloading supported.
 
-- [ ] **Vecteezy** ([vecteezy.com](https://www.vecteezy.com/))
-  - **Status**: Unimplemented.
-  - **Notes**: Mixed free/pro licensing with attribution and auth requirements.
+- [x] **Vecteezy** ([vecteezy.com](https://www.vecteezy.com/))
+  - **CLI Provider**: `vecteezy`
+  - **Status**: Implemented & verified.
+  - **Notes**: Free photo search and direct full-resolution master photo downloading (up to 15+ MB) via CloudFront CDN supported.
 
 - [ ] **Freepik** ([freepik.com](https://www.freepik.com/))
   - **Status**: Unimplemented.

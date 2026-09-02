@@ -243,6 +243,7 @@ Provider and query may be given as positionals after `s` / `-s`, or with `-P` / 
 | `freenaturestock` | [Free Nature Stock](https://freenaturestock.com) | Free CC0 nature & wildlife stock photography by Adrian Pelletier | Direct master full-resolution photo downloads (up to 20+ MB). |
 | `goodfreephotos` | [Good Free Photos](https://goodfreephotos.com) | Free CC0 public domain photos, state parks, and landmarks by Yinan Chen | Direct master full-resolution photo downloads. |
 | `wikimedia` | [Wikimedia Commons](https://commons.wikimedia.org) | Freely licensed and public domain educational & stock media repository | Direct master full-resolution image downloads. |
+| `vecteezy` | [Vecteezy](https://vecteezy.com) | Free high-resolution stock photography and design assets | Direct master full-resolution photo downloads (up to 15+ MB). |
 
 List providers at runtime via `ast help` (printed under **PROVIDERS**).
 
@@ -314,6 +315,7 @@ src/
     freenaturestock.zig
     goodfreephotos.zig
     wikimedia.zig
+    vecteezy.zig
 assets/                    README banner and static assets
 docs/                      Provider implementation notes
 install.sh                 curl | bash installer (Linux release binaries)
