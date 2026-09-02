@@ -275,3 +275,16 @@ This document summarizes the network endpoints, transport models, and image down
   * Dimensions extracted from `imageinfo.width` and `imageinfo.height`.
 * **Download**: Direct GET on full master resolution media via `upload.wikimedia.org`.
 * **License**: Public Domain, CC0, and Creative Commons.
+
+---
+
+## 23. Vecteezy (`vecteezy.com`)
+
+* **Search**: `GET https://www.vecteezy.com/search?qterm={query}&content_type=photo&license_class=free`
+* **Format**: Structured search results containing embedded JSON-LD schema (`application/ld+json`).
+* **Extraction**:
+  * Clean image IDs extracted from resource digits (`vecteezy-{resource_id}`).
+  * Descriptive prompt titles extracted and HTML unescaped from schema `name`.
+  * Master full-resolution URLs constructed by replacing `/non_2x/` previews with `/original/` master assets on Vecteezy CDN.
+* **Download**: Direct GET on master original camera photo JPEG files (up to 15+ MB) with automated preview fallback.
+* **License**: Vecteezy Free License.
