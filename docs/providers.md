@@ -259,3 +259,19 @@ This document summarizes the network endpoints, transport models, and image down
   * Master full-resolution URLs constructed by rewriting `/cache/` to `/albums/` and stripping thumbnail geometry tokens (`_200_w200_..._thumb`).
 * **Download**: Direct GET on master original camera photo JPEG files.
 * **License**: CC0 / 100% Free Public Domain.
+
+---
+
+## 22. Wikimedia Commons (`commons.wikimedia.org`)
+
+* **Search**: `GET https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrsearch={query}&gsrlimit={limit}&prop=imageinfo&iiprop=url|size|mime&iiurlwidth=500&format=json`
+* **Format**: Official MediaWiki Action API querying Wikimedia's file repository (namespace 6).
+* **Extraction**:
+  * Sorted ascending by search relevance rank (`index`).
+  * File IDs formatted as `wikimedia-{pageid}`.
+  * Titles cleaned by stripping `File:` prefix and file extensions, and replacing underscores with spaces.
+  * Full original master media URLs extracted from `imageinfo.url` (with query tracking stripped).
+  * 500px thumbnail URLs extracted from `imageinfo.thumburl`.
+  * Dimensions extracted from `imageinfo.width` and `imageinfo.height`.
+* **Download**: Direct GET on full master resolution media via `upload.wikimedia.org`.
+* **License**: Public Domain, CC0, and Creative Commons.
