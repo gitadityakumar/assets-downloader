@@ -24,6 +24,7 @@ const moveast = @import("providers/moveast.zig");
 const cupcake = @import("providers/cupcake.zig");
 const freenaturestock = @import("providers/freenaturestock.zig");
 const goodfreephotos = @import("providers/goodfreephotos.zig");
+const wikimedia = @import("providers/wikimedia.zig");
 const registry = @import("providers/registry.zig");
 const stdio = @import("stdio.zig");
 const Allocator = std.mem.Allocator;
@@ -105,6 +106,9 @@ fn searchProvider(
     if (std.ascii.eqlIgnoreCase(provider_id, "goodfreephotos")) {
         return goodfreephotos.search(client, allocator, query, config.default_limit);
     }
+    if (std.ascii.eqlIgnoreCase(provider_id, "wikimedia")) {
+        return wikimedia.search(client, allocator, query, config.default_limit);
+    }
     return error.UnknownProvider;
 }
 
@@ -178,6 +182,9 @@ fn downloadAsset(
     if (std.ascii.eqlIgnoreCase(provider_id, "goodfreephotos")) {
         return goodfreephotos.download(client, allocator, io, a, config.default_output_dir);
     }
+    if (std.ascii.eqlIgnoreCase(provider_id, "wikimedia")) {
+        return wikimedia.download(client, allocator, io, a, config.default_output_dir);
+    }
     return error.UnknownProvider;
 }
 
@@ -203,6 +210,7 @@ fn promptOf(provider_id: []const u8, a: Asset) ?[]const u8 {
     if (std.ascii.eqlIgnoreCase(provider_id, "cupcake")) return cupcake.getPrompt(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "freenaturestock")) return freenaturestock.getPrompt(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "goodfreephotos")) return goodfreephotos.getPrompt(a);
+    if (std.ascii.eqlIgnoreCase(provider_id, "wikimedia")) return wikimedia.getPrompt(a);
     return a.prompt;
 }
 
@@ -228,6 +236,7 @@ fn urlOf(provider_id: []const u8, a: Asset) ?[]const u8 {
     if (std.ascii.eqlIgnoreCase(provider_id, "cupcake")) return cupcake.getUrl(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "freenaturestock")) return freenaturestock.getUrl(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "goodfreephotos")) return goodfreephotos.getUrl(a);
+    if (std.ascii.eqlIgnoreCase(provider_id, "wikimedia")) return wikimedia.getUrl(a);
     return a.image_url;
 }
 

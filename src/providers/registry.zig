@@ -22,6 +22,7 @@ const moveast = @import("moveast.zig");
 const cupcake = @import("cupcake.zig");
 const freenaturestock = @import("freenaturestock.zig");
 const goodfreephotos = @import("goodfreephotos.zig");
+const wikimedia = @import("wikimedia.zig");
 
 pub const ProviderInfo = struct {
     id: []const u8,
@@ -51,6 +52,7 @@ pub fn list() []const ProviderInfo {
         .{ .id = cupcake.id, .name = cupcake.name },
         .{ .id = freenaturestock.id, .name = freenaturestock.name },
         .{ .id = goodfreephotos.id, .name = goodfreephotos.name },
+        .{ .id = wikimedia.id, .name = wikimedia.name },
     };
 }
 
@@ -69,5 +71,5 @@ pub fn displayName(id: []const u8) ?[]const u8 {
 }
 
 pub fn availableIds() []const u8 {
-    return "aura, unsplash, isorepublic, picjumbo, foodiesfeed, picography, gratisography, startupstockphotos, burst, jaymantri, publicdomainarchive, magdeleine, splitshire, deviantart, negativespace, skitterphoto, libreshot, moveast, cupcake, freenaturestock, goodfreephotos";
+    return "aura, unsplash, isorepublic, picjumbo, foodiesfeed, picography, gratisography, startupstockphotos, burst, jaymantri, publicdomainarchive, magdeleine, splitshire, deviantart, negativespace, skitterphoto, libreshot, moveast, cupcake, freenaturestock, goodfreephotos, wikimedia";
 }
