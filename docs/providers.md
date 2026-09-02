@@ -246,3 +246,16 @@ This document summarizes the network endpoints, transport models, and image down
   * Direct full-resolution master photo URLs constructed via Cloudflare CDN (`https://cdn.freenaturestock.com/photos/freenaturestock-{id}.jpg`).
 * **Download**: Direct GET on master original camera photo JPEG files (up to 20+ MB).
 * **License**: CC0 / 100% Free Public Domain.
+
+---
+
+## 21. Good Free Photos (`goodfreephotos.com`)
+
+* **Search**: `GET https://www.goodfreephotos.com/page/search/?words={query}`
+* **Format**: Comprehensive public domain photo archive by Yinan Chen categorized by state parks, countries, and landmarks.
+* **Extraction**:
+  * Clean image IDs extracted from photo slug.
+  * Alt title descriptions extracted and HTML unescaped.
+  * Master full-resolution URLs constructed by rewriting `/cache/` to `/albums/` and stripping thumbnail geometry tokens (`_200_w200_..._thumb`).
+* **Download**: Direct GET on master original camera photo JPEG files.
+* **License**: CC0 / 100% Free Public Domain.
