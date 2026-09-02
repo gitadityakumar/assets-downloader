@@ -288,3 +288,18 @@ This document summarizes the network endpoints, transport models, and image down
   * Master full-resolution URLs constructed by replacing `/non_2x/` previews with `/original/` master assets on Vecteezy CDN.
 * **Download**: Direct GET on master original camera photo JPEG files (up to 15+ MB) with automated preview fallback.
 * **License**: Vecteezy Free License.
+
+---
+
+## 24. NASA Image Library (`images.nasa.gov`)
+
+* **Search**: `GET https://images-api.nasa.gov/search?q={query}&media_type=image`
+* **Format**: Official NASA Image and Video Library REST API.
+* **Extraction**:
+  * Clean sanitized image IDs formatted as `nasa-{nasa_id}`.
+  * Descriptive titles from `data[0].title`.
+  * Attribution formatted from `photographer` or `center` (e.g. `NASA / JPL`).
+  * Master full-resolution media URLs resolved from `links`: prefers original JPEG/PNG (`~orig.jpg`), falling back to `~large.jpg` or `~medium.jpg` when the original is an uncompressed TIFF.
+  * Preview thumbnails from `~thumb.jpg`.
+* **Download**: Direct GET on master full-resolution media via `images-assets.nasa.gov` CDN.
+* **License**: Public Domain / Free for commercial and non-commercial educational use without copyright restriction.

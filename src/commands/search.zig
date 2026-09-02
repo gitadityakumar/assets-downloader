@@ -26,6 +26,7 @@ const freenaturestock = @import("../providers/freenaturestock.zig");
 const goodfreephotos = @import("../providers/goodfreephotos.zig");
 const wikimedia = @import("../providers/wikimedia.zig");
 const vecteezy = @import("../providers/vecteezy.zig");
+const nasa = @import("../providers/nasa.zig");
 const stdio = @import("../stdio.zig");
 const Allocator = std.mem.Allocator;
 const Io = std.Io;
@@ -116,6 +117,9 @@ fn doSearch(
     if (std.ascii.eqlIgnoreCase(provider_id, "vecteezy")) {
         return vecteezy.search(client, allocator, query, limit);
     }
+    if (std.ascii.eqlIgnoreCase(provider_id, "nasa")) {
+        return nasa.search(client, allocator, query, limit);
+    }
     return error.UnknownProvider;
 }
 
@@ -196,6 +200,9 @@ fn doDownload(
     if (std.ascii.eqlIgnoreCase(provider_id, "vecteezy")) {
         return vecteezy.download(client, allocator, io, a, output_dir);
     }
+    if (std.ascii.eqlIgnoreCase(provider_id, "nasa")) {
+        return nasa.download(client, allocator, io, a, output_dir);
+    }
     return error.UnknownProvider;
 }
 
@@ -223,6 +230,7 @@ fn doPrompt(provider_id: []const u8, a: Asset) ?[]const u8 {
     if (std.ascii.eqlIgnoreCase(provider_id, "goodfreephotos")) return goodfreephotos.getPrompt(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "wikimedia")) return wikimedia.getPrompt(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "vecteezy")) return vecteezy.getPrompt(a);
+    if (std.ascii.eqlIgnoreCase(provider_id, "nasa")) return nasa.getPrompt(a);
     return a.prompt orelse a.description;
 }
 
@@ -250,6 +258,7 @@ fn doUrl(provider_id: []const u8, a: Asset) ?[]const u8 {
     if (std.ascii.eqlIgnoreCase(provider_id, "goodfreephotos")) return goodfreephotos.getUrl(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "wikimedia")) return wikimedia.getUrl(a);
     if (std.ascii.eqlIgnoreCase(provider_id, "vecteezy")) return vecteezy.getUrl(a);
+    if (std.ascii.eqlIgnoreCase(provider_id, "nasa")) return nasa.getUrl(a);
     return a.image_url;
 }
 
