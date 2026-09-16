@@ -38,7 +38,13 @@
 
 ## Quick install (Linux)
 
-Download and install the latest pre-built binary with one command:
+Download and install the **v1.1.0** release binaries with one command:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/gitadityakumar/assets-downloader/v1.1.0/install.sh | bash
+```
+
+Or install the latest release directly from `main`:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/gitadityakumar/assets-downloader/main/install.sh | bash
@@ -48,7 +54,7 @@ This detects your CPU architecture, downloads a **static musl** build when avail
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `VERSION` | latest GitHub release | Version without a leading `v` (e.g. `1.0.0`) |
+| `VERSION` | latest GitHub release | Version without a leading `v` (e.g. `1.1.0`) |
 | `PREFIX` / `BINDIR` | `~/.local/bin` | Install directory |
 | `TARGET` | auto | Force a Zig target triple (e.g. `x86_64-linux-gnu`) |
 | `VERIFY` | `1` | Set to `0` to skip checksum verification |
@@ -57,34 +63,37 @@ This detects your CPU architecture, downloads a **static musl** build when avail
 Examples:
 
 ```bash
-# Pin a version
+# Pin to release v1.1.0
+curl -fsSL https://raw.githubusercontent.com/gitadityakumar/assets-downloader/v1.1.0/install.sh | bash
+
+# Or specify VERSION explicitly
 curl -fsSL https://raw.githubusercontent.com/gitadityakumar/assets-downloader/main/install.sh | VERSION=1.1.0 bash
 
 # System-wide install (may prompt for sudo)
-curl -fsSL https://raw.githubusercontent.com/gitadityakumar/assets-downloader/main/install.sh | PREFIX=/usr/local/bin bash
+curl -fsSL https://raw.githubusercontent.com/gitadityakumar/assets-downloader/v1.1.0/install.sh | PREFIX=/usr/local/bin bash
 
 # Prefer a glibc-linked binary
-curl -fsSL https://raw.githubusercontent.com/gitadityakumar/assets-downloader/main/install.sh | TARGET=x86_64-linux-gnu bash
+curl -fsSL https://raw.githubusercontent.com/gitadityakumar/assets-downloader/v1.1.0/install.sh | TARGET=x86_64-linux-gnu bash
 ```
 
 macOS and Windows users should [build from source](#build-from-source) for now; CI publishes Linux binaries only.
 
 ## Pre-built binaries
 
-GitHub Releases publish archives and bare binaries for these Linux targets:
+Download standalone binaries or tarballs directly from [Release v1.1.0](https://github.com/gitadityakumar/assets-downloader/releases/tag/v1.1.0):
 
-| Target | Notes |
-|--------|--------|
-| `x86_64-linux-musl` | Static; default install on Intel/AMD 64-bit |
-| `aarch64-linux-musl` | Static; default install on ARM64 |
-| `x86_64-linux-gnu` | Dynamically linked against glibc |
-| `aarch64-linux-gnu` | Dynamically linked against glibc |
-| `arm-linux-musleabihf` | Static 32-bit ARM (hard-float) |
-| `riscv64-linux-musl` | Static RISC-V 64-bit |
+| Target Platform | Archive | Standalone Binary |
+|-----------------|---------|-------------------|
+| **Linux x86_64 (static musl)** | [ast-x86_64-linux-musl-1.1.0.tar.gz](https://github.com/gitadityakumar/assets-downloader/releases/download/v1.1.0/ast-x86_64-linux-musl-1.1.0.tar.gz) | [ast-x86_64-linux-musl-1.1.0](https://github.com/gitadityakumar/assets-downloader/releases/download/v1.1.0/ast-x86_64-linux-musl-1.1.0) |
+| **Linux aarch64 (static musl)** | [ast-aarch64-linux-musl-1.1.0.tar.gz](https://github.com/gitadityakumar/assets-downloader/releases/download/v1.1.0/ast-aarch64-linux-musl-1.1.0.tar.gz) | [ast-aarch64-linux-musl-1.1.0](https://github.com/gitadityakumar/assets-downloader/releases/download/v1.1.0/ast-aarch64-linux-musl-1.1.0) |
+| **Linux x86_64 (glibc)** | [ast-x86_64-linux-gnu-1.1.0.tar.gz](https://github.com/gitadityakumar/assets-downloader/releases/download/v1.1.0/ast-x86_64-linux-gnu-1.1.0.tar.gz) | [ast-x86_64-linux-gnu-1.1.0](https://github.com/gitadityakumar/assets-downloader/releases/download/v1.1.0/ast-x86_64-linux-gnu-1.1.0) |
+| **Linux aarch64 (glibc)** | [ast-aarch64-linux-gnu-1.1.0.tar.gz](https://github.com/gitadityakumar/assets-downloader/releases/download/v1.1.0/ast-aarch64-linux-gnu-1.1.0.tar.gz) | [ast-aarch64-linux-gnu-1.1.0](https://github.com/gitadityakumar/assets-downloader/releases/download/v1.1.0/ast-aarch64-linux-gnu-1.1.0) |
+| **Linux armv7 (static musl)** | [ast-arm-linux-musleabihf-1.1.0.tar.gz](https://github.com/gitadityakumar/assets-downloader/releases/download/v1.1.0/ast-arm-linux-musleabihf-1.1.0.tar.gz) | [ast-arm-linux-musleabihf-1.1.0](https://github.com/gitadityakumar/assets-downloader/releases/download/v1.1.0/ast-arm-linux-musleabihf-1.1.0) |
+| **Linux riscv64 (static musl)** | [ast-riscv64-linux-musl-1.1.0.tar.gz](https://github.com/gitadityakumar/assets-downloader/releases/download/v1.1.0/ast-riscv64-linux-musl-1.1.0.tar.gz) | [ast-riscv64-linux-musl-1.1.0](https://github.com/gitadityakumar/assets-downloader/releases/download/v1.1.0/ast-riscv64-linux-musl-1.1.0) |
 
-Asset names look like `ast-<target>-<version>.tar.gz` (and a matching bare binary). Each release also ships `SHA256SUMS` and a copy of `install.sh`.
+Verify downloads with [`SHA256SUMS`](https://github.com/gitadityakumar/assets-downloader/releases/download/v1.1.0/SHA256SUMS).
 
-Browse releases: https://github.com/gitadityakumar/assets-downloader/releases
+Browse all releases: https://github.com/gitadityakumar/assets-downloader/releases
 
 ## Build from source
 
