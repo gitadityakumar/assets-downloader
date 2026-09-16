@@ -1,6 +1,6 @@
 //! Shared configuration.
 
-pub const version = "1.0.0";
+pub const version = "1.1.0";
 
 /// CLI binary / command name (short for "asset").
 pub const app_name = "ast";

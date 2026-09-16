@@ -2,7 +2,7 @@
 
 [![ast](assets/banner.svg)](#readme)
 
-[![Version](https://img.shields.io/badge/version-1.0.0-brightgreen?style=for-the-badge)](#installation)
+[![Version](https://img.shields.io/badge/version-1.1.0-brightgreen?style=for-the-badge)](#installation)
 [![Zig](https://img.shields.io/badge/Zig-0.16+-f7a41d?style=for-the-badge&logo=zig&logoColor=white)](https://ziglang.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
 [![CI](https://img.shields.io/github/actions/workflow/status/gitadityakumar/assets-downloader/ci.yml?branch=main&style=for-the-badge&label=CI)](https://github.com/gitadityakumar/assets-downloader/actions/workflows/ci.yml)
@@ -58,7 +58,7 @@ Examples:
 
 ```bash
 # Pin a version
-curl -fsSL https://raw.githubusercontent.com/gitadityakumar/assets-downloader/main/install.sh | VERSION=1.0.0 bash
+curl -fsSL https://raw.githubusercontent.com/gitadityakumar/assets-downloader/main/install.sh | VERSION=1.1.0 bash
 
 # System-wide install (may prompt for sudo)
 curl -fsSL https://raw.githubusercontent.com/gitadityakumar/assets-downloader/main/install.sh | PREFIX=/usr/local/bin bash
@@ -336,8 +336,8 @@ Tagged releases publish Linux binaries:
 2. Commit the version bump.
 3. Create and push an annotated tag:
    ```bash
-   git tag -a v1.0.0 -m "ast v1.0.0"
-   git push origin v1.0.0
+   git tag -a v1.1.0 -m "ast v1.1.0"
+   git push origin v1.1.0
    ```
 4. The [Release](.github/workflows/release.yml) workflow cross-compiles for the Linux targets above, attaches archives, bare binaries, `SHA256SUMS`, and `install.sh` to the GitHub Release.
 
